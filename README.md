@@ -39,25 +39,43 @@ cd TheMeridianGrid
 
 ### 2. Configure Environment Variables
 
-The backend service requires a `.env` file for its database connection and other secrets.
+This project uses two `.env` files for configuration: one for Docker Compose at the root, and one for the Node.js application and Prisma tools within the backend service.
+
+#### Root Environment (`.env`)
+
+At the **project root** (`TheMeridianGrid/`), create a file named `.env`. This file provides secrets to Docker Compose.
 
 ```bash
-# Navigate to the backend directory
-cd meridian-grid-backend
-
-# Create the .env file by copying the example
-# (Note: .env.example does not exist yet, but this is a best practice to add later) 
 touch .env
 ```
 
-Now, open the newly created `.env` file and add the following content. These values must match the credentials in your root `docker-compose.yml` file.
+Open this file and add the following content:
 
 ```env
-# .env
+# TheMeridianGrid/.env
+# Used by Docker Compose to set the database password
+
+POSTGRES_PASSWORD=mysecretpassword
+```
+
+#### Backend Environment (`meridian-grid-backend/.env`)
+
+Navigate into the backend directory and create another `.env` file. This file provides secrets to the Node.js application and the Prisma CLI.
+
+```bash
+cd meridian-grid-backend
+touch .env
+```
+
+Open this file and add the following content. The password must match the `POSTGRES_PASSWORD` you set in the root `.env` file.
+
+```env
+# meridian-grid-backend/.env
+# Used by the Prisma CLI and the application seed script
 
 DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/meridian-grid-db"
 
-# Add admin credentials for the seed script
+# Credentials for the seed script
 ADMIN_APP_USER="admin@meridian.grid.com"
 ADMIN_APP_PASSWORD="ChangeMe_AdminPassword123!"
 ```
@@ -74,7 +92,10 @@ pnpm install
 From the **root `TheMeridianGrid` directory**, start the PostgreSQL database container.
 
 ```bash
-# From the project root
+# Return to the project root
+cd ..
+
+# Start the container
 docker-compose up -d
 ```
 
@@ -83,6 +104,9 @@ docker-compose up -d
 From the **`meridian-grid-backend` directory**, apply the database schema and populate it with initial data.
 
 ```bash
+# Navigate back to the backend
+cd meridian-grid-backend
+
 # Apply the schema
 npx prisma migrate dev
 
@@ -108,8 +132,10 @@ The server should now be running on `http://localhost:3000`.
 This project is structured as a monorepo to contain all related services in one place.
 
 ```
-/meridian-grid
-├── .github/                # CI/CD Workflows (coming soon)
+/TheMeridianGrid
+├── .env                    # Docker Compose Environment
+├── docker-compose.yml      # Docker Compose Configuration
 ├── meridian-grid-backend/  # Node.js + Express API (Week 1)
+│   └── .env                # Backend Application Environment
 └── meridian-grid-frontend/ # React + TypeScript UI (coming soon)
 ```
