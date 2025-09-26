@@ -1,9 +1,6 @@
 import { PrismaClient, Role, MachineType } from "@prisma/client";
 import bcrypt from "bcrypt";
-import * as dotenv from "dotenv";
-import * as path from "path";
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+import "dotenv/config";
 
 const prisma = new PrismaClient();
 const adminEmail = process.env.ADMIN_APP_USER;
