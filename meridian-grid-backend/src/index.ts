@@ -4,6 +4,7 @@ import express, { type Request, type Response } from "express";
 import { Server } from "socket.io";
 import http from "http";
 import { SimulationService } from "./services/simulation.service";
+import { SOCKET_EVENTS } from "./constants";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
@@ -64,10 +65,10 @@ simulationService.startAllSimulations();
 io.on("connection", (socket) => {
   // This runs for every new client that conects
   console.log("A user connected");
-  socket.on("disconnect", () => {
+  socket.on(SOCKET_EVENTS.DISCONNECT, () => {
     console.log("User disconnected.");
   });
-  socket.on("subscribeToMachine", (machineId: string) => {
+  socket.on(SOCKET_EVENTS.SUBSCRIBE_TO_MACHINE, (machineId: string) => {
     socket.join(machineId);
     console.log(`Socket ${socket.id} subscribed to room: ${machineId}`);
   });
