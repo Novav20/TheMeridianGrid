@@ -16,7 +16,9 @@ export class SimulationService {
     const machines = await this.prisma.machine.findMany();
     console.log(`${machines.length} machines were found.`);
     machines.forEach((machine) => {
-      let newSimulator = new MachineSimulator(machine.id);
+      let newSimulator = new MachineSimulator(machine.id, (newState) => {
+        this.io.to(machine.id).emit("machine:data", newState);
+      });
       newSimulator.start();
       console.log(
         `A simulator for machine ID: ${machine.id} has been started.`

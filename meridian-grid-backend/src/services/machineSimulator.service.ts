@@ -4,7 +4,7 @@ export class MachineSimulator {
   private state: MachineState;
   private intervalId: NodeJS.Timeout | null;
 
-  constructor(machineId: string) {
+  constructor(private readonly machineId: string, private onStateUpdate: (state: MachineState) => void) {
     this.state = {
       status: "idle",
       temperature: 25,
@@ -12,6 +12,8 @@ export class MachineSimulator {
     };
 
     this.intervalId = null;
+
+
   }
   private _updateState(): void {
     if (this.state.status === "running") {
@@ -23,6 +25,8 @@ export class MachineSimulator {
         this.stop();
         // TODO: add alerting here in a future week
       }
+
+      this.onStateUpdate(this.state);
     }
   }
 

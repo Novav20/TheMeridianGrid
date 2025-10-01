@@ -67,6 +67,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User disconnected.");
   });
+  socket.on("subscribeToMachine", (machineId: string) => {
+    socket.join(machineId);
+    console.log(`Socket ${socket.id} subscribed to room: ${machineId}`);
+  });
 });
 
 httpServer.listen(port, () => {
