@@ -6,13 +6,23 @@ A full-stack Industrial IoT (IIoT) platform designed for the real-time monitorin
 
 ---
 
-## Core Technologies (Backend Foundation)
+## Core Technologies (Backend)
 
-The backend foundation is built with a modern, scalable, and type-safe stack:
+The backend is built with a modern, scalable, and type-safe stack:
 
 -   **Runtime:** Node.js
 -   **Language:** TypeScript
+# The Meridian Grid
+
+A full-stack Industrial IoT (IIoT) platform designed for the real-time monitoring, control, and data analysis of a machine fleet.
+
+> **Note:** This project is currently under active development as part of a 12-week intensive learning program.
+
+---
+
+## Core Tec
 -   **Framework:** Express.js
+-   **Real-time Communication:** Socket.IO
 -   **Database:** PostgreSQL (running in Docker)
 -   **ORM:** Prisma
 -   **Environment:** Docker & Docker Compose
@@ -71,9 +81,10 @@ Open this file and add the following content. The password must match the `POSTG
 
 ```env
 # meridian-grid-backend/.env
-# Used by the Prisma CLI and the application seed script
+# Used by the Prisma CLI, application, and seed script
 
 DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/meridian-grid-db"
+CORS_ORIGIN="http://localhost:5173"
 
 # Credentials for the seed script
 ADMIN_APP_USER="admin@meridian.grid.com"
@@ -125,6 +136,18 @@ pnpm dev
 
 The server should now be running on `http://localhost:3000`.
 
+### 7. Testing the Real-Time Engine
+
+With the server running, you can verify the real-time data broadcasting.
+
+Open a **second terminal** and, from the `meridian-grid-backend` directory, run the test client:
+
+```bash
+pnpm test:client
+```
+
+You should see a continuous stream of JSON data representing the state of a simulated machine, confirming that the WebSocket connection is working.
+
 ---
 
 ## Project Structure
@@ -135,7 +158,7 @@ This project is structured as a monorepo to contain all related services in one 
 /TheMeridianGrid
 ├── .env                    # Docker Compose Environment
 ├── docker-compose.yml      # Docker Compose Configuration
-├── meridian-grid-backend/  # Node.js + Express API (Week 1)
+├── meridian-grid-backend/  # Node.js + Express API
 │   └── .env                # Backend Application Environment
 └── meridian-grid-frontend/ # React + TypeScript UI (coming soon)
 ```
