@@ -3,6 +3,7 @@ import * as path from "path";
 import express, { type Request, type Response } from "express";
 import { Server } from "socket.io";
 import http from "http";
+import { SimulationService } from "./services/simulation.service";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
@@ -56,6 +57,9 @@ const io = new Server(httpServer, {
     methods: ["GET", "POST"],
   },
 });
+
+const simulationService = new SimulationService(io);
+simulationService.startAllSimulations();
 
 io.on("connection", (socket) => {
   // This runs for every new client that conects
