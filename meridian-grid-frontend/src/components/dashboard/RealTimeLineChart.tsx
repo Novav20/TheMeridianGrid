@@ -8,11 +8,12 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import type { DataPoint } from "../../types/chart.types";
 
-// interface LineChartProps {
-//   data: { time: string; value: number }[];
-// }
-const staticData = [
+interface LineChartProps {
+  data: DataPoint[];
+}
+const staticData: DataPoint[] = [
   { time: "10:00", value: 50 },
   { time: "10:05", value: 55 },
   { time: "10:10", value: 53 },
