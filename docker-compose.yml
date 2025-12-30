@@ -3,6 +3,7 @@ version: '3.8'
 services:
   # 1. Define the 'client' service
   client:
+    restart: always
     build:
       # - Use './tmg-client' as the build context
       context: ./tmg-client
@@ -12,6 +13,7 @@ services:
 
   # 2. Define the 'server' service
   server:
+    restart: always
     build: 
       # - Use './tmg-server' as the build context
       context: ./tmg-server
@@ -29,6 +31,7 @@ services:
 
   # 3. Define the 'db' service
   db:
+    restart: always
   # - Use the 'postgres:15-alpine' image
     image: postgres:15-alpine
     # - Set environment variables for POSTGRES_USER, POSTGRES_PASSWORD, and POSTGRES_DB
