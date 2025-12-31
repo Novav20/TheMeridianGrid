@@ -13,11 +13,18 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 // 6. Use the cors() middleware
 app.use(Cors());
-// 7. Create a basic GET route at '/' that returns a "Hello from TMG Server!" message
+// 7. Health check endpoint
 app.get("/", (req, res) => {
   res.send("Hello from TMG Server!");
 });
-// 8. Start the server and log a message indicating the port it's running on
+
+// 8. API Handshake endpoint
+app.get("/api/hello", (req, res) => {
+  console.log("Received request at /api/hello");
+  res.json({ message: "Hello from TMG Server (API)!" });
+});
+
+// 9. Start the server and log a message indicating the port it's running on
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

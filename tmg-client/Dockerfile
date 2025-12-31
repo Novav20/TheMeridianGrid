@@ -19,7 +19,11 @@ RUN npm run build
 FROM nginx:stable-alpine
 # 8. Copy the built static files from the build stage (from /app/dist) to the Nginx html directory (/usr/share/nginx/html)
 COPY --from=build /app/dist /usr/share/nginx/html
-# 9. Expose port 80 to the outside world
+
+# 9. Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# 10. Expose port 80 to the outside world
 EXPOSE 80
-# 10. Start Nginx when the container launches
+# 11. Start Nginx when the container launches
 CMD [ "nginx","-g","daemon off;" ]

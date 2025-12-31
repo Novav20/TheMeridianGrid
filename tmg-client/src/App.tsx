@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { getHello } from "./api/client";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [message, setMessage] = useState<string>("Connecting to server...");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getHello();
+        setMessage(result.message);
+      } catch (error) {
+        console.error("Failed to connect:", error);
+        setMessage("Server unreachable");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <header className="App-header">
+        <h1>The Meridian Grid</h1>
+        <div className="server-status">
+          <p>Server Status: {message}</p>
+        </div>
+      </header>
+    </div>
+  );
 }
 
-export default App
+export default App;
