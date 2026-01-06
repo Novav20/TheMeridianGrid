@@ -11,7 +11,11 @@ views:
       - title
       - moscow
       - justification
-    sort: []
+    sort:
+      - property: moscow
+        direction: DESC
+      - property: epic
+        direction: ASC
     columnSize:
       file.name: 138
       note.title: 120
