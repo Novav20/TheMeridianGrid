@@ -55,6 +55,7 @@ flowchart TD
 | Define Health Rules | CORE-05 | ✅ Covered |
 | Test Connection/Simulate | CORE-10 | ✅ Covered |
 | Activate (Draft -> Active) | CORE-09 | ✅ Covered |
+| Data Retention/Governance | CORE-42 | ✅ Covered |
 
 ---
 
@@ -110,6 +111,7 @@ flowchart TD
 | Check Permissions (Enforcement) | IAM-14 / IAM-16 | ✅ Covered |
 | Audit Activity | IAM-18 | ✅ Covered |
 | developer Shortcut | IAM-21 | ✅ Covered |
+| Platform Health Monitoring | IAM-44 | ✅ Covered |
 
 ---
 
@@ -162,3 +164,50 @@ flowchart TD
 | Share/Publish | HMI-29 | ✅ Covered |
 | Kiosk Mode | HMI-30 | ✅ Covered |
 | Mobile Adaptive | HMI-31 | ✅ Covered |
+| UI Theming (Dark/Light) | HMI-43 | ✅ Covered |
+
+---
+
+## Process 4: Intelligent Automation & Alert Response
+**Actors:** [[Operator]] (Human), [[System Agent]] (Automated Logic)
+
+```mermaid
+flowchart TD
+    Start([Data Ingestion]) --> RuleEngine["Evaluate Logic/Rules"]
+    
+    RuleEngine --> ConditionMet{Condition Met?}
+    
+    %% Path A: Alerting
+    ConditionMet -- Threshold Breach --> TriggerAlert["Create Alert Instance"]
+    TriggerAlert --> Notify["Notify Operator (Email/UI)"]
+    Notify --> OperatorAck["Operator Acknowledges"]
+    
+    %% Path B: Automation (The 'Intelligent' part)
+    ConditionMet -- Automation Logic --> CheckSafety{"Safety Interlock?"}
+    CheckSafety -- Safe --> ExecuteAction["Execute Automated Command"]
+    CheckSafety -- Unsafe --> TriggerAlert
+    
+    ExecuteAction --> VerifyResult["Verify Feedback (Did it work?)"]
+    VerifyResult --> LogAction["Log Action in Audit Trail"]
+    
+    OperatorAck --> LogAction
+    LogAction --> End([End Loop])
+    
+    classDef autoStory fill:#b6d7a8,stroke:#333,stroke-width:2px;
+    class RuleEngine,TriggerAlert,Notify,OperatorAck,CheckSafety,ExecuteAction,VerifyResult autoStory;
+```
+
+## Gap Analysis: Process 4 (Automation)
+
+| Process Step | User Story ID | Status |
+| :--- | :--- | :--- |
+| Evaluate Logic/Rules (Engine) | AUTO-32 | ✅ Covered |
+| Create Alert Instance | AUTO-33 | ✅ Covered |
+| Notify Operator | AUTO-34 | ✅ Covered |
+| Operator Acknowledges | AUTO-35 | ✅ Covered |
+| Safety Interlock Check | AUTO-37 | ✅ Covered |
+| Execute Automated Command | AUTO-36 | ✅ Covered |
+| Verify Feedback | AUTO-38 | ✅ Covered |
+| Maintenance Suppression | AUTO-39 | ✅ Covered |
+| Alert Correlation | AUTO-40 | ✅ Covered |
+| Agent Registry | AUTO-41 | ✅ Covered |
