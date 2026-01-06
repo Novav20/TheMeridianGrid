@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 5
-priority: High
+moscow: SHOULD
+justification: "Powerful feature for closing the loop, but monitoring (Read) is the first priority for MVP."
 ---
 
 # HMI-28: Remote Control Widget

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: Medium
+moscow: MUST
+justification: "Prevents database disk exhaustion; critical for platform stability in continuous use."
 ---
 
 # CORE-42: Data Retention Policy Management

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Core security feature to ensure users only see the assets they are responsible for."
 ---
 
 # IAM-13: Asset Scope Assignment

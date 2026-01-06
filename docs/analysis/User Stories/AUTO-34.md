@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 3
-priority: Medium
+moscow: SHOULD
+justification: "Highly valuable for off-site responsiveness, but UI-based alerts are the MVP baseline."
 ---
 
 # AUTO-34: Notification Channel Management

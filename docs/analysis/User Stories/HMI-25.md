@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "Enables the 'Low-Code' promise; allowing integrators to bind data without writing code."
 ---
 
 # HMI-25: Dynamic Data Binding

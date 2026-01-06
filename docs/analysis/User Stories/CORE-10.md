@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: High
+moscow: SHOULD
+justification: "Greatly improves the developer/integrator experience, though technically the data flows without it."
 ---
 
 # CORE-10: Telemetry Connection Tester

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: Medium
+moscow: SHOULD
+justification: "Important for enterprise team collaboration, but secondary to dashboard creation."
 ---
 
 # HMI-29: Dashboard Sharing/Publishing

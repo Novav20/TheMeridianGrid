@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "Allows users to organize views by site, asset group, or job function."
 ---
 
 # HMI-22: Dashboard CRUD

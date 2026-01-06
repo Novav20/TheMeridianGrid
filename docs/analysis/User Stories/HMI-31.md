@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 5
-priority: Low
+moscow: COULD
+justification: "Nice to have for remote monitoring, but industrial tasks are primarily performed on workstations/tablets."
 ---
 
 # HMI-31: Adaptive Mobile Layout

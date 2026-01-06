@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: Medium
+moscow: SHOULD
+justification: "Logical grouping and hierarchy improve UX and scalability, but flat lists are functional for a basic MVP."
 ---
 
 # CORE-03: Relationship Management

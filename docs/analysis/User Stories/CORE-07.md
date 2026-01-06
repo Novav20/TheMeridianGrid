@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Security and data isolation are non-negotiable architectural pillars."
 ---
 
 # CORE-07: Asset-Level Access Control

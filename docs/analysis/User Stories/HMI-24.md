@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Standard visualizations (charts, gauges) are required to translate raw data into information."
 ---
 
 # HMI-24: Core Widget Library

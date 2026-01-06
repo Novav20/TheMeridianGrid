@@ -9,6 +9,9 @@ views:
       - actor
       - status
       - title
+      - moscow
+      - justification
     sort: []
     columnSize:
       file.name: 138
+      note.title: 120

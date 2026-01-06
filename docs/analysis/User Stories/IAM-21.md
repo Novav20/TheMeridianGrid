@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[User]]"
 points: 2
-priority: Medium
+moscow: MUST
+justification: "Essential for making the project accessible to students and hobbyists without security overhead."
 ---
 
 # IAM-21: Personal/Developer Mode (Single-User Setup)

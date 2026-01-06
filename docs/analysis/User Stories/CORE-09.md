@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "Prevents system noise and alert pollution from half-configured assets."
 ---
 
 # CORE-09: Asset Lifecycle Management (Activate/Archive)

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Real-time feedback is the primary expectation for any operational dashboard."
 ---
 
 # HMI-26: Real-time Telemetry Stream (WebSockets)

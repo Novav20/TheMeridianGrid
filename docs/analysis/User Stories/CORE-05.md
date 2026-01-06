@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Defines the 'Intelligence' of the platform; providing actionable status is a core BPA requirement."
 ---
 
 # CORE-05: Asset Status & Health Definition

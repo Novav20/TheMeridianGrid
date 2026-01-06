@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 2
-priority: Low
+moscow: COULD
+justification: "Valuable for factory floor displays, but standard full-screen browser mode is a viable MVP workaround."
 ---
 
 # HMI-30: Full-screen Kiosk Mode

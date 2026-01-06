@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 2
-priority: Low
+moscow: COULD
+justification: "Useful for operational sanity, but users can manually disable rules as a workaround in v1.0."
 ---
 
 # AUTO-39: Maintenance Mode Suppression

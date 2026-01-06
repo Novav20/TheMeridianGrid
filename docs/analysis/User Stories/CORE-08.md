@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 8
-priority: Medium
+moscow: COULD
+justification: "High technical complexity; while valuable for audit, basic telemetry is the MVP priority."
 ---
 
 # CORE-08: Asset Configuration Versioning

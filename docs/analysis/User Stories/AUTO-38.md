@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[System]]"
 points: 5
-priority: Medium
+moscow: SHOULD
+justification: "Vital for high-integrity control loops, but basic command sending (28) is the first step."
 ---
 
 # AUTO-38: Closed-Loop Feedback Verification

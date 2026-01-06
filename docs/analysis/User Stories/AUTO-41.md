@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: Low
+moscow: COULD
+justification: "Part of the long-term 'Swarm Intelligence' vision, but standard user IDs suffice for MVP agents."
 ---
 
 # AUTO-41: Software Agent Registry

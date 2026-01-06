@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: Medium
+moscow: COULD
+justification: "Predefined roles are sufficient for MVP; dynamic role creation adds non-essential complexity."
 ---
 
 # IAM-16: Custom Role Definition

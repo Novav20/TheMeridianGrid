@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "Core technical requirement; data ingestion is the primary function of the platform."
 ---
 
 # CORE-02: Real-time Telemetry Ingestion

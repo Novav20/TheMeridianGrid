@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 3
-priority: Medium
+moscow: SHOULD
+justification: "Critical for proactive maintenance, but manual container monitoring is feasible during MVP phase."
 ---
 
 # IAM-44: Platform Health Monitoring

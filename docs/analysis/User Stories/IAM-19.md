@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 2
-priority: Medium
+moscow: SHOULD
+justification: "Important defensive security, but basic firewall/auth provides enough protection for MVP."
 ---
 
 # IAM-19: Account Lockout/Suspension

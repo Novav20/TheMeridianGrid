@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 2
-priority: Low
+moscow: MUST
+justification: "Essential for identifying physical hardware (serial numbers, manufacturers) in the registry."
 ---
 
 # CORE-04: Asset Metadata Tagging

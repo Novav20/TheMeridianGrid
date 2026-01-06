@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[System]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "Necessary for incident tracking, accountability, and operational response."
 ---
 
 # AUTO-33: Alert Generation & Lifecycle

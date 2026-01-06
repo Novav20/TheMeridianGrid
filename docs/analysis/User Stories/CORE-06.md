@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: High
+moscow: SHOULD
+justification: "Improves efficiency and consistency, but manual asset creation is sufficient for an initial pilot."
 ---
 
 # CORE-06: Asset Type Templates (Class Definition)

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[User]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "The entry point for all users; must be secure and functional from Day 1."
 ---
 
 # IAM-14: Secure Login & Authentication

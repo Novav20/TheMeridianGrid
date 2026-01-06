@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 3
-priority: Low
+moscow: SHOULD
+justification: "Basic security hygiene; necessary for industrial pilots but less critical than core auth."
 ---
 
 # IAM-17: Password Policies & Rotation

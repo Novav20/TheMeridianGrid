@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 5
-priority: Medium
+moscow: SHOULD
+justification: "Powerful for closing the control loop, though manual operator intervention is the safer MVP start."
 ---
 
 # AUTO-36: Automated Action Definition

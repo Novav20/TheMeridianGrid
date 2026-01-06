@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Core 'Flexibility' hypothesis; differentiates TMG from static, rigid legacy SCADA systems."
 ---
 
 # HMI-23: Drag-and-Drop Grid Layout

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[Device Integrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Fundamental for transforming raw telemetry into actionable intelligence."
 ---
 
 # AUTO-32: Rule Engine Definition

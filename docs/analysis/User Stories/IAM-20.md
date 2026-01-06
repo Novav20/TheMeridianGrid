@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: Low
+moscow: COULD
+justification: "Unique value prop, but regular accounts can be repurposed as guest accounts for initial testing."
 ---
 
 # IAM-20: "Coopetitor" Guest Access

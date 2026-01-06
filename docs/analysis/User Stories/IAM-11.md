@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "Fundamental for any multi-user application; essential for project collaboration."
 ---
 
 # IAM-11: User Onboarding & CRUD

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[System]]"
 points: 8
-priority: High
+moscow: MUST
+justification: "Critical safety requirement to prevent automated commands from causing physical damage."
 ---
 
 # AUTO-37: Safety Interlock Enforcement

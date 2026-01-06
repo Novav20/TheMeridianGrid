@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[System Administrator]]"
 points: 5
-priority: High
+moscow: MUST
+justification: "Ensures accountability for actions, which is vital for safe remote control (Epic 4)."
 ---
 
 # IAM-18: Audit Logs (User Activity)

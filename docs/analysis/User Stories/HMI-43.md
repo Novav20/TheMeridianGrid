@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 2
-priority: Low
+moscow: SHOULD
+justification: "Requested in BPA for control room health/safety (glare reduction), though not a core functional block."
 ---
 
 # HMI-43: UI Theming & Accessibility

@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 3
-priority: Medium
+moscow: MUST
+justification: "Required for troubleshooting and trend analysis; essential for operational oversight."
 ---
 
 # HMI-27: Historical Data Filter

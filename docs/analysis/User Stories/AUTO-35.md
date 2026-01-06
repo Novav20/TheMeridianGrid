@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[Operator]]"
 points: 3
-priority: High
+moscow: MUST
+justification: "The primary operational workflow for managing and silencing incidents."
 ---
 
 # AUTO-35: Alert Acknowledgment Dashboard

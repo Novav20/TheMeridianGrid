@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
 status: Backlog
 actor: "[[System]]"
 points: 5
-priority: Low
+moscow: COULD
+justification: "Advanced UX for high-scale environments; individual alerts are acceptable for initial pilots."
 ---
 
 # AUTO-40: Alert Correlation & Grouping

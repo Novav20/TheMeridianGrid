@@ -5,7 +5,8 @@ epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
 status: Backlog
 actor: "[[User]]"
 points: 5
-priority: Medium
+moscow: SHOULD
+justification: "Critical for high-security industrial compliance, but standard auth is sufficient for initial pilot."
 ---
 
 # IAM-15: Multi-Factor Authentication (MFA)
