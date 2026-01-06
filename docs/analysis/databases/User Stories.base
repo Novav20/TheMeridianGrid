@@ -1,0 +1,14 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.inFolder("The-Meridian-Grid/docs/analysis/User Stories")
+    order:
+      - file.name
+      - actor
+      - status
+      - title
+    sort: []
+    columnSize:
+      file.name: 138
