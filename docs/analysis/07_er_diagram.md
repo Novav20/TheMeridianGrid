@@ -1,57 +1,69 @@
-# Entity-Relationship Diagram (ERD)
+# Entity-Relationship Diagram (ERD) - Logical Design
 
-This diagram visualizes the data structure of The Meridian Grid, designed to fulfill the requirements defined in the SRS.
+This diagram represents the logical data model for The Meridian Grid, derived from the Functional Requirements (FR-01 to FR-29).
 
 ```mermaid
 erDiagram
-    USER ||--o{ DASHBOARD : "creates"
+    USER ||--o{ DASHBOARD : "owns"
     USER ||--o{ AUDIT_LOG : "performs"
     USER }|--|| ROLE : "assigned"
     USER ||--o{ ALERT : "acknowledges"
     
-    ROLE ||--o{ PERMISSION : "contains"
+    ROLE ||--o{ PERMISSION : "grants"
 
-    ASSET ||--o{ TELEMETRY : "generates"
+    ASSET ||--o{ TELEMETRY : "emits"
     ASSET ||--o{ RULE : "monitored_by"
     ASSET ||--o{ ALERT : "triggers"
     ASSET ||--o{ ASSET : "contains (hierarchy)"
-    ASSET }|--o{ ASSET_GROUP : "belongs_to"
+    ASSET }|--o{ ASSET_GROUP : "categorized_in"
 
     ASSET_GROUP }|--o{ USER : "scoped_to"
 
     RULE ||--o{ ALERT : "defines"
 
     DASHBOARD ||--o{ WIDGET : "contains"
-    WIDGET ||--|| ASSET : "binds_to"
+    WIDGET ||--|| ASSET : "visualizes"
 
-    %% Entity Details
     USER {
         uuid id PK
         string email UK
         string password_hash
         string name
         uuid role_id FK
-        enum status "Active, Disabled"
+        enum status
     }
 
     ROLE {
         uuid id PK
         string name UK
-        jsonb permissions
+        string description
+    }
+
+    PERMISSION {
+        uuid id PK
+        string action "e.g., asset:create, dashboard:view"
+        string resource "e.g., site_a, line_1"
+        uuid role_id FK
     }
 
     ASSET {
         uuid id PK
         string name UK
-        jsonb model "AAS/DTDL structure"
-        jsonb metadata "Static tags"
+        jsonb model "Properties & Mapping definitions"
+        jsonb metadata "Static info (Serial, Brand)"
         enum state "Draft, Active, Archived"
         uuid parent_id FK
         timestamp created_at
     }
 
+    ASSET_GROUP {
+        uuid id PK
+        string name
+        string description
+    }
+
     TELEMETRY {
-        timestamp time PK "TimescaleDB Primary Dimension"
+        timestamp time PK "TimescaleDB Chunk Dimension"
         uuid asset_id FK
         string property_name
         float value
@@ -60,8 +72,8 @@ erDiagram
     RULE {
         uuid id PK
         uuid asset_id FK
-        string expression "Logical logic"
-        string severity "Info, Warning, Critical"
+        string expression "Logic: e.g., temp > 80"
+        string severity
         boolean is_active
     }
 
@@ -69,17 +81,24 @@ erDiagram
         uuid id PK
         uuid rule_id FK
         uuid asset_id FK
-        enum status "New, Acknowledged, Resolved"
+        enum status "New, Ack, Resolved"
         timestamp triggered_at
-        timestamp ack_at
         uuid ack_user_id FK
     }
 
     DASHBOARD {
         uuid id PK
         string name
-        jsonb layout "Grid coordinates"
-        uuid creator_id FK
+        jsonb layout "Grid configuration"
+        uuid user_id FK "Owner"
+    }
+
+    WIDGET {
+        uuid id PK
+        string type "Gauge, LineChart, Toggle"
+        jsonb config "Binding and UI settings"
+        uuid dashboard_id FK
+        uuid asset_id FK "Primary data source"
     }
 
     AUDIT_LOG {
@@ -91,8 +110,14 @@ erDiagram
     }
 ```
 
-### Architectural Notes
-1.  **TimescaleDB Integration:** The `TELEMETRY` table is designed as a Hypertable, where `time` is the primary partitioning dimension for high-performance time-series ingestion.
-2.  **Flexible Schemas:** `ASSET.model` and `DASHBOARD.layout` use `JSONB` to support heterogeneous hardware and dynamic HMI configurations without database migrations.
-3.  **Recursive Hierarchy:** `ASSET.parent_id` allows for infinite nesting of machines, stations, and sites.
-4.  **Security Scoping:** The `ASSET_GROUP` to `USER` relation enables the "Scoped Access" requirement (IAM-13).
+### Traceability & Gap Analysis
+
+| Entity | Origin Requirement | Gap Addressed |
+| :--- | :--- | :--- |
+| **PERMISSION** | FR-09, FR-13 | Defined specific `action` and `resource` fields for fine-grained RBAC. |
+| **WIDGET** | FR-20, FR-21 | Added `config` to store the dynamic data binding details. |
+| **ASSET_GROUP** | FR-09 | Created to support the "Scoped Access" requirement for groups of machines. |
+| **DASHBOARD** | FR-18 | Added `layout` as JSONB to store the grid positions from FR-19. |
+
+**Final Observation:** 
+One minor gap found: **Telemetry** needs a `unit` field (e.g., "Celsius", "RPM") if we want the HMI to show them automatically. I have included that in the `ASSET.model` JSONB for now, but we could make it an attribute. I'll stick with JSONB for flexibility as per our Architectural Decision.
