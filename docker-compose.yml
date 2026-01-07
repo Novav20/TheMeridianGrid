@@ -24,7 +24,7 @@ services:
     # - Pass environment variables:
     environment:
       - PORT=${PORT}
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
   #   - DATABASE_URL=postgresql://user:password@db:5432/tmg_db (Note: 'db' is the hostname)
 
   # 3. Define the 'db' service
@@ -32,6 +32,9 @@ services:
     restart: always
   # - Use the 'postgres:15-alpine' image
     image: postgres:15-alpine
+    # - Map host port to container port 5432 (For local Prisma Migrations)
+    ports:
+      - "${POSTGRES_PORT}:5432"
     # - Set environment variables for POSTGRES_USER, POSTGRES_PASSWORD, and POSTGRES_DB
     environment:
       - POSTGRES_USER=${POSTGRES_USER}

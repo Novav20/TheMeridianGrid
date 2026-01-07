@@ -1,0 +1,217 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Datasource URL is configured in prisma.config.ts
+
+// =========================================================
+// Enums
+// =========================================================
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+  SUSPENDED
+}
+
+enum AssetState {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+  MAINTENANCE
+}
+
+enum AlertStatus {
+  NEW
+  ACKNOWLEDGED
+  RESOLVED
+}
+
+enum Severity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+// =========================================================
+// Models
+// =========================================================
+
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  passwordHash String       @map("password_hash")
+  name         String
+  status       UserStatus   @default(ACTIVE)
+
+  roleId       String       @map("role_id")
+  role         Role         @relation(fields: [roleId], references: [id])
+
+  auditLogs    AuditLog[]
+  dashboards   Dashboard[]
+  alertsAcked  Alert[]      @relation("AlertAcknowledgedBy")
+  alertsCreated Alert[]     @relation("AlertCreatedBy")
+  scopedGroups AssetGroup[]
+
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Role {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  description String?
+
+  users       User[]
+  permissions Permission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id       String  @id @default(uuid())
+  action   String
+  resource String?
+
+  roleId   String @map("role_id")
+  role     Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@map("permissions")
+}
+
+model Asset {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  model     Json
+  metadata  Json?
+  state     AssetState @default(DRAFT)
+
+  // Hierarchy
+  parentId  String?    @map("parent_id")
+  parent    Asset?     @relation("AssetHierarchy", fields: [parentId], references: [id])
+  children  Asset[]    @relation("AssetHierarchy")
+
+  // Many-to-Many
+  groups    AssetGroup[]
+
+  telemetry Telemetry[]
+  rules     Rule[]
+  alerts    Alert[]
+  widgets   Widget[]
+
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  @@map("assets")
+}
+
+model AssetGroup {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+
+  assets      Asset[]
+  users       User[]
+
+  @@map("asset_groups")
+}
+
+model Telemetry {
+  time         DateTime
+  assetId      String   @map("asset_id")
+  propertyName String   @map("property_name")
+  value        Float
+
+  asset        Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@id([time, assetId, propertyName])
+  @@map("telemetry")
+}
+
+model Rule {
+  id         String   @id @default(uuid())
+  expression String
+  severity   Severity @default(INFO)
+  isActive   Boolean  @default(true) @map("is_active")
+
+  assetId    String   @map("asset_id")
+  asset      Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  alerts     Alert[]
+
+  @@map("rules")
+}
+
+model Alert {
+  id          String      @id @default(uuid())
+  status      AlertStatus @default(NEW)
+  severity    Severity
+  triggeredAt DateTime    @default(now()) @map("triggered_at")
+  
+  ackAt       DateTime?   @map("ack_at")
+  
+  // Relations
+  ackUserId   String?     @map("ack_user_id")
+  ackUser     User?       @relation("AlertAcknowledgedBy", fields: [ackUserId], references: [id])
+  
+  createdById String?     @map("created_by_id")
+  createdBy   User?       @relation("AlertCreatedBy", fields: [createdById], references: [id])
+
+  ruleId      String      @map("rule_id")
+  rule        Rule        @relation(fields: [ruleId], references: [id])
+  
+  assetId     String      @map("asset_id")
+  asset       Asset       @relation(fields: [assetId], references: [id])
+
+  @@map("alerts")
+}
+
+model Dashboard {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  layout    Json
+  
+  creatorId String   @map("creator_id")
+  creator   User     @relation(fields: [creatorId], references: [id])
+  
+  widgets   Widget[]
+
+  @@map("dashboards")
+}
+
+model Widget {
+  id          String    @id @default(uuid())
+  type        String
+  config      Json
+  
+  dashboardId String    @map("dashboard_id")
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
+  
+  assetId     String?   @map("asset_id")
+  asset       Asset?    @relation(fields: [assetId], references: [id])
+
+  @@map("widgets")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  action     String
+  resourceId String?  @map("resource_id")
+  details    Json?
+  
+  userId     String?  @map("user_id")
+  user       User?    @relation(fields: [userId], references: [id])
+  
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("audit_logs")
+}

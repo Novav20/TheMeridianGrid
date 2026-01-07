@@ -30,7 +30,7 @@ erDiagram
         string password_hash
         string name
         uuid role_id FK
-        enum status
+        enum status "ACTIVE, DISABLED, SUSPENDED"
     }
 
     ROLE {
@@ -42,7 +42,7 @@ erDiagram
     PERMISSION {
         uuid id PK
         string action "e.g., asset:create, dashboard:view"
-        string resource "e.g., site_a, line_1"
+        string resource "e.g., * or site_a"
         uuid role_id FK
     }
 
@@ -51,7 +51,7 @@ erDiagram
         string name UK
         jsonb model "Properties & Mapping definitions"
         jsonb metadata "Static info (Serial, Brand)"
-        enum state "Draft, Active, Archived"
+        enum state "DRAFT, ACTIVE, ARCHIVED, MAINTENANCE"
         uuid parent_id FK
         timestamp created_at
     }
@@ -73,7 +73,7 @@ erDiagram
         uuid id PK
         uuid asset_id FK
         string expression "Logic: e.g., temp > 80"
-        string severity
+        enum severity "INFO, WARNING, CRITICAL"
         boolean is_active
     }
 
