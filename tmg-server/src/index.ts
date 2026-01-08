@@ -1,30 +1,40 @@
-// 1. Import express, Cors, and dotenv
 import express from "express";
 import Cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 
-// 2. Configure dotenv to load environment variables
-dotenv.config({ path: "../.env" });
-// 3. Initialize the express application
+// Services & Controllers
+import { PrismaService } from "./services/prisma.service";
+import { AssetService } from "./services/asset.service";
+import { AssetController } from "./controllers/asset.controller";
+
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+
 const app = express();
-// 4. Define the port (use process.env.PORT or default to 3000)
 const port = process.env.PORT || 3000;
-// 5. Use the express.json() middleware to parse JSON bodies
+
 app.use(express.json());
-// 6. Use the cors() middleware
 app.use(Cors());
-// 7. Health check endpoint
+
+// =========================================================
+// Dependency Injection (Wiring)
+// =========================================================
+
+const prisma = PrismaService.getInstance().client;
+
+const assetService = new AssetService(prisma);
+
+const assetController = new AssetController(assetService);
+// =========================================================
+// Routes
+// =========================================================
+
 app.get("/", (req, res) => {
-  res.send("Hello from TMG Server!");
+  res.send("TMG Server is running.");
 });
 
-// 8. API Handshake endpoint
-app.get("/api/hello", (req, res) => {
-  console.log("Received request at /api/hello");
-  res.json({ message: "Hello from TMG Server (API)!" });
-});
+app.get("/api/assets", assetController.getAll);
 
-// 9. Start the server and log a message indicating the port it's running on
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

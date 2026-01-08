@@ -7,6 +7,7 @@ import path from "path";
 // Explicitly load .env from the root directory
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
+//TODO: Export / move this variable to the shared package
 const connectionString = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
 
 // 1. Create a PostgreSQL connection pool
