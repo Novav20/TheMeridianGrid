@@ -16,8 +16,20 @@ export class PrismaService {
   public client: PrismaClient;
 
   private constructor() {
-    const connectionString = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
-    
+    // 1. Try to use the full DATABASE_URL (provided by Docker Compose)
+    let connectionString = process.env.DATABASE_URL;
+
+    // 2. If missing (Local Dev), build it from individual components in .env
+    if (!connectionString) {
+      const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB } = process.env;
+      
+      if (!POSTGRES_USER || !POSTGRES_PASSWORD || !POSTGRES_HOST || !POSTGRES_PORT || !POSTGRES_DB) {
+        throw new Error("Database configuration is incomplete. Ensure DATABASE_URL or all POSTGRES_* variables are set.");
+      }
+
+      connectionString = `postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
+    }
+
     const pool = new Pool({ connectionString });
     const adapter = new PrismaPg(pool);
     

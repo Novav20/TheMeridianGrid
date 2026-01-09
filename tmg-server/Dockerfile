@@ -39,4 +39,4 @@ RUN npm install --omit=dev
 EXPOSE 3000
 
 # Start the server
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/src/index.js"]
