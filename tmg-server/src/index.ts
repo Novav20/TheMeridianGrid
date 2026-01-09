@@ -2,11 +2,7 @@ import express from "express";
 import Cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-
-// Services & Controllers
-import { PrismaService } from "./services/prisma.service";
-import { AssetService } from "./services/asset.service";
-import { AssetController } from "./controllers/asset.controller";
+import assetRouter from "./routes/asset.routes";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
@@ -17,15 +13,6 @@ app.use(express.json());
 app.use(Cors());
 
 // =========================================================
-// Dependency Injection (Wiring)
-// =========================================================
-
-const prisma = PrismaService.getInstance().client;
-
-const assetService = new AssetService(prisma);
-
-const assetController = new AssetController(assetService);
-// =========================================================
 // Routes
 // =========================================================
 
@@ -33,7 +20,7 @@ app.get("/", (req, res) => {
   res.send("TMG Server is running.");
 });
 
-app.get("/api/assets", assetController.getAll);
+app.use("/api/assets", assetRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
