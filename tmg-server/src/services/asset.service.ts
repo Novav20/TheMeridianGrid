@@ -47,4 +47,14 @@ export class AssetService {
       data,
     });
   }
+
+  /**
+   * Deletes an existing asset.
+   * @param id The UUID of the asset.
+   */
+  async deleteAsset(id: string) {
+    return this.prisma.asset.delete({
+      where: { id },
+    });
+  }
 }
