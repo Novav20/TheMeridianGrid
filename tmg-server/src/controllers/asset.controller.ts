@@ -62,4 +62,18 @@ export class AssetController {
       res.status(400).json({ error: error.errors || error.message });
     }
   };
+
+  public delete = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      await this.assetService.deleteAsset(id);
+      res.status(204).send();
+    } catch (error: any) {
+      if (error.code === "P2025") {
+        res.status(404).json({ error: "Asset not found" });
+        return;
+      }
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
 }

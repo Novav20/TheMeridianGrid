@@ -13,5 +13,6 @@ router.get("/", assetController.getAll);
 router.post("/", assetController.create);
 router.get("/:id", assetController.getById);
 router.patch("/:id", assetController.update);
+router.delete("/:id", assetController.delete);
 
 export default router;
