@@ -27,4 +27,20 @@ export class AssetController {
       res.status(400).json({ error: error.errors || error.message });
     }
   };
+
+  public getById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const asset = await this.assetService.getAssetById(id);
+
+      if (!asset) {
+        res.status(404).json({ error: "Asset not found" });
+        return;
+      }
+
+      res.json(asset);
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
 }

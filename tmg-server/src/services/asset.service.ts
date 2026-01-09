@@ -25,4 +25,14 @@ export class AssetService {
       data,
     });
   }
+
+  /**
+   * Retrieves a single asset by its unique ID.
+   * @param id The UUID of the asset.
+   */
+  async getAssetById(id: string) {
+    return this.prisma.asset.findUnique({
+      where: { id },
+    });
+  }
 }

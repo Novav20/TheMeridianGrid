@@ -11,5 +11,6 @@ const router = Router();
 
 router.get("/", assetController.getAll);
 router.post("/", assetController.create);
+router.get("/:id", assetController.getById);
 
 export default router;
