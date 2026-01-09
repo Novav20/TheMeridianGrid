@@ -35,4 +35,16 @@ export class AssetService {
       where: { id },
     });
   }
+
+  /**
+   * Updates an existing asset.
+   * @param id The UUID of the asset to update.
+   * @param data The partial data to update.
+   */
+  async updateAsset(id: string, data: Partial<CreateAssetDto>) {
+    return this.prisma.asset.update({
+      where: { id },
+      data,
+    });
+  }
 }

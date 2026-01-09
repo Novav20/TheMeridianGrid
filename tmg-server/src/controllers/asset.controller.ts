@@ -43,4 +43,23 @@ export class AssetController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   };
+
+  public update = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const validatedData = createAssetSchema.partial().parse(req.body);
+      const updatedAsset = await this.assetService.updateAsset(
+        id,
+        validatedData
+      );
+      res.json(updatedAsset);
+    } catch (error: any) {
+      // Handle Prisma "Record not found" error (code P2025)
+      if (error.code === "P2025") {
+        res.status(404).json({ error: "Asset not found" });
+        return;
+      }
+      res.status(400).json({ error: error.errors || error.message });
+    }
+  };
 }
