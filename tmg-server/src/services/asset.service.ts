@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../prisma/client/client";
 import { CreateAssetDto } from "../schemas/asset.schema";
 
 /**

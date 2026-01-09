@@ -12,6 +12,9 @@ RUN npm install
 # Copy the rest of the source code
 COPY . .
 
+# Generate Prisma Client (to ./prisma/client)
+RUN npx prisma generate
+
 # Compile TypeScript
 RUN npm run build
 
@@ -21,8 +24,10 @@ FROM node:22-alpine
 WORKDIR /app
 
 # Copy the compiled code from the build stage
-# We copy it into a 'dist' directory to match the start script
 COPY --from=build /app/dist ./dist
+
+# Copy the generated Prisma Client source code
+COPY --from=build /app/prisma/client ./prisma/client
 
 # Copy package files for production dependency installation
 COPY package*.json ./
