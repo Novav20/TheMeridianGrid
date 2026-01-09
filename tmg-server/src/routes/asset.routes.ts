@@ -10,5 +10,6 @@ const assetController = new AssetController(assetService);
 const router = Router();
 
 router.get("/", assetController.getAll);
+router.post("/", assetController.create);
 
 export default router;
