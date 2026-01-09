@@ -1,46 +1,51 @@
 services:
-  # 1. Define the 'client' service
+  # ---------------------------------------------------------------------------
+  # Frontend Service (React + Vite + Nginx)
+  # ---------------------------------------------------------------------------
   client:
     restart: always
     build:
-      # - Use './tmg-client' as the build context
       context: ./tmg-client
-    # - Map host port 8080 to container port 80 (since it uses Nginx)
+      # Multi-stage build handles compilation and Nginx setup.
     ports:
-      - "8080:80"
+      - "8080:80" # Map host:8080 -> container:80
 
-  # 2. Define the 'server' service
+  # ---------------------------------------------------------------------------
+  # Backend Service (Node.js + Express)
+  # ---------------------------------------------------------------------------
   server:
     restart: always
     build: 
-      # - Use './tmg-server' as the build context
       context: ./tmg-server
-    # - Map host port 3000 to container port 3000
+      # Uses the production-optimized multi-stage build (no devDependencies).
+      # Note: Changes require a rebuild (`docker-compose up --build`).
     ports:
       - "${PORT}:3000"
-    # - Use 'depends_on' to ensure 'db' starts first
     depends_on:
       - db
-    # - Pass environment variables:
     environment:
       - PORT=${PORT}
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-  #   - DATABASE_URL=postgresql://user:password@db:5432/tmg_db (Note: 'db' is the hostname)
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      # Note: 'db' refers to the service name defined below.
 
-  # 3. Define the 'db' service
+  # ---------------------------------------------------------------------------
+  # Database Service (PostgreSQL)
+  # ---------------------------------------------------------------------------
   db:
     restart: always
-  # - Use the 'postgres:15-alpine' image
     image: postgres:15-alpine
-    # - Set environment variables for POSTGRES_USER, POSTGRES_PASSWORD, and POSTGRES_DB
+    # Expose port for local tools (e.g., Prisma Studio, DBeaver)
+    ports:
+      - "${POSTGRES_PORT}:5432"
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
-    # - Use a volume to persist data: 'pgdata:/var/lib/postgresql/data'
     volumes:
-      - pgdata_tmg_db:/var/lib/postgresql/data
+      - pgdata_tmg_db:/var/lib/postgresql/data # Persist data across restarts
 
-# 4. Define the named volumes
+# ---------------------------------------------------------------------------
+# Named Volumes
+# ---------------------------------------------------------------------------
 volumes:
   pgdata_tmg_db:

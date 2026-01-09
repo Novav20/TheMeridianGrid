@@ -1,0 +1,21 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.inFolder("The-Meridian-Grid/docs/analysis/User Stories")
+    order:
+      - file.name
+      - actor
+      - status
+      - title
+      - moscow
+      - justification
+    sort:
+      - property: moscow
+        direction: DESC
+      - property: epic
+        direction: ASC
+    columnSize:
+      file.name: 138
+      note.title: 120

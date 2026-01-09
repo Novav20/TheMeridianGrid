@@ -33,6 +33,21 @@ graph TD;
    - Frontend: [http://localhost:8080](http://localhost:8080)
    - API Status: [http://localhost:8080/api/hello](http://localhost:8080/api/hello)
 
+## Weekly Progress
+
+### Week 1: Scaffolding & Containerization
+- [x] Initialized Vite/React frontend and Express/TypeScript backend.
+- [x] Containerized both services using Docker.
+- [x] Orchestrated the stack with Docker Compose and Nginx reverse proxy.
+- [x] Established basic client-server communication.
+
+### Week 2: Database & API Design
+- [x] Conducted requirements gathering and BPA analysis.
+- [x] Designed the ERD and semantic data model (AAS/DTDL inspired).
+- [x] Implemented Prisma ORM with PostgreSQL.
+- [x] Created a modular API architecture (Service-Controller-Router).
+- [x] Implemented full CRUD for Asset Management with Zod validation.
+
 ## Tech Stack
 - **Frontend:** React, TypeScript, Vite, Nginx
 - **Backend:** Node.js, Express, TypeScript
