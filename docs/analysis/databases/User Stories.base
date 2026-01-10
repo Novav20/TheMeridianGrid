@@ -4,6 +4,7 @@ views:
     filters:
       and:
         - file.inFolder("The-Meridian-Grid/docs/analysis/User Stories")
+        - moscow == "MUST"
     order:
       - file.name
       - actor
@@ -12,9 +13,7 @@ views:
       - moscow
       - justification
     sort:
-      - property: moscow
-        direction: DESC
-      - property: epic
+      - property: file.name
         direction: ASC
     columnSize:
       file.name: 138
