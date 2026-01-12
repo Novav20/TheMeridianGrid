@@ -3,6 +3,7 @@ import Cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import assetRouter from "./routes/asset.routes";
+import telemetryRouter from "./routes/telemetry.routes";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/assets", assetRouter);
+app.use("/api/telemetry", telemetryRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
