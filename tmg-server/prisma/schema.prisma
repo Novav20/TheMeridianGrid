@@ -95,6 +95,8 @@ model Asset {
   model    Json
   metadata Json?
   state    AssetState @default(DRAFT)
+  lastSeen DateTime?
+  heartbeatTimeout Int @default(60)
 
   // Hierarchy
   parentId String? @map("parent_id")
