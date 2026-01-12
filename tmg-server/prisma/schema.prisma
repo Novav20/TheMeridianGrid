@@ -135,6 +135,7 @@ model Telemetry {
   asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
 
   @@id([time, assetId, propertyName])
+  @@index([time])
   @@map("telemetry")
 }
 
