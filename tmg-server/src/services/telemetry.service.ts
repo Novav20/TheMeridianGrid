@@ -34,4 +34,35 @@ export class TelemetryService {
     // 5. Execute as a single transaction
     return this.prisma.$transaction(operations);
   }
+
+  /**
+   * Retrieves historical telemetry data for a specific asset within a time range.
+   * @param assetId The ID of the asset
+   * @param start The start date (inclusive)
+   * @param end The end date (inclusive)
+   */
+  async getHistory(assetId: string, start: Date, end: Date) {
+    return this.prisma.telemetry.findMany({
+      where: {
+        assetId,
+        time: {
+          gte: start,
+          lte: end,
+        },
+      },
+      orderBy: { time: "asc" },
+    });
+  }
+
+  /**
+   * Retrieves the most recent telemetry data point for an asset.
+   * Useful for showing "Current Status" on dashboards.
+   * @param assetId The ID of the asset
+   */
+  async getLatest(assetId: string) {
+    return this.prisma.telemetry.findFirst({
+      where: { assetId },
+      orderBy: { time: "desc" },
+    });
+  }
 }

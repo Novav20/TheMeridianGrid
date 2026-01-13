@@ -1,5 +1,11 @@
--- Enable TimescaleDB extension
-CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+-- Safely enable TimescaleDB extension
+-- Using a DO block avoids conflicts if the library is already preloaded by the engine
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'timescaledb') THEN
+        CREATE EXTENSION timescaledb CASCADE;
+    END IF;
+END $$;
 
 -- Convert 'telemetry' table to a hypertable
 -- Partition by 'time' column

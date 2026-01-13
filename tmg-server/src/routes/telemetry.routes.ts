@@ -9,5 +9,7 @@ const telemetryController = new TelemetryController(telemetryService);
 const router = Router();
 
 router.post("/", telemetryController.ingest);
+router.get("/:assetId/history", telemetryController.getHistory);
+router.get("/:assetId/latest", telemetryController.getLatest);
 
 export default router;
