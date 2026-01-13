@@ -141,11 +141,21 @@ model Telemetry {
   @@map("telemetry")
 }
 
+enum RuleOperator {
+  GT
+  LT
+  EQ
+  GTE
+  LTE
+}
+
 model Rule {
-  id         String   @id @default(uuid())
-  expression String
-  severity   Severity @default(INFO)
-  isActive   Boolean  @default(true) @map("is_active")
+  id         String       @id @default(uuid())
+  metric     String       // e.g., "temperature"
+  operator   RuleOperator
+  threshold  Float
+  severity   Severity     @default(INFO)
+  isActive   Boolean      @default(true) @map("is_active")
 
   assetId String @map("asset_id")
   asset   Asset  @relation(fields: [assetId], references: [id], onDelete: Cascade)

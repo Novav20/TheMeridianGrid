@@ -62,7 +62,7 @@
 
 | User Story | Functional Req | Description | Implementation Status | Test Status | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **[[AUTO-32]]** | **[[FR-24]]** | Continuous Rule Eval | 🔴 **Backlog** | ❌ **Untested** | |
+| **[[AUTO-32]]** | **[[FR-24]]** | Continuous Rule Eval | 🔴 **Backlog** | Week 3 (Simple Thresholds). Compound rules deferred to Phase 2. |
 | **[[AUTO-33]]** | **[[FR-25]]** | Create Alerts | 🔴 **Backlog** | ❌ **Untested** | Week 3 (Basic). |
 | | **[[FR-26]]** | Deduplicate Alerts | 🔴 **Backlog** | ❌ **Untested** | |
 | **[[AUTO-35]]** | **[[FR-27]]** | Acknowledge Alerts | 🔴 **Backlog** | ❌ **Untested** | |

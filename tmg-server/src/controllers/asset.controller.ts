@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AssetService } from "../services/asset.service";
-import { createAssetSchema } from "../schemas/asset.schema";
+import { createAssetSchema, updateAssetSchema } from "../schemas/asset.schema";
 
 /**
  * Controller: AssetController
@@ -47,7 +47,7 @@ export class AssetController {
   public update = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const validatedData = createAssetSchema.partial().parse(req.body);
+      const validatedData = updateAssetSchema.parse(req.body);
       const updatedAsset = await this.assetService.updateAsset(
         id,
         validatedData

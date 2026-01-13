@@ -12,7 +12,10 @@ export const createAssetSchema = z.object({
   state: z.nativeEnum(AssetState).optional(),
   parentId: z.string().uuid().optional(),
 });
-
+/**
+ * Zod schema for updating an existing asset (all fields optional).
+ */
+export const updateAssetSchema = createAssetSchema.partial();
 /**
  * TypeScript type inferred from the createAssetSchema.
  */
