@@ -1,8 +1,12 @@
 import { PrismaClient } from "../../prisma/client/client";
 import { CreateTelemetryBatchDto } from "../schemas/telemetry.schema";
+import { EvaluationService } from "./evaluation.service";
 
 export class TelemetryService {
-  constructor(private prisma: PrismaClient) {}
+  constructor(
+    private prisma: PrismaClient,
+    private evaluationService: EvaluationService
+  ) {}
 
   /**
    * Ingests a batch of telemetry data points.
@@ -11,28 +15,25 @@ export class TelemetryService {
    * @param batchData Array of telemetry points
    */
   async ingestTelemetry(batchData: CreateTelemetryBatchDto) {
-    // 1. Prepare the operations array
-    const operations: any[] = [];
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Add the bulk insert operation
+      await tx.telemetry.createMany({ data: batchData });
 
-    // 2. Add the bulk insert operation
-    operations.push(this.prisma.telemetry.createMany({ data: batchData }));
+      // 2. Identify unique assets to update 'lastSeen'
+      const uniqueAssetIds = [...new Set(batchData.map((d) => d.assetId))];
 
-    // 3. Identify unique assets to update 'lastSeen'
-    const uniqueAssetIds = [...new Set(batchData.map((d) => d.assetId))];
-
-    // 4. Add update operations for each asset
-    const now = new Date();
-    uniqueAssetIds.forEach((assetId) => {
-      operations.push(
-        this.prisma.asset.update({
+      // 3. Add update operations for each asset
+      const now = new Date();
+      for (const assetId of uniqueAssetIds) {
+        await tx.asset.update({
           where: { id: assetId },
           data: { lastSeen: now },
-        })
-      );
-    });
+        });
+      }
 
-    // 5. Execute as a single transaction
-    return this.prisma.$transaction(operations);
+      // 4. Trigger the evaluation logic
+      await this.evaluationService.evaluateBatch(batchData, tx);
+    });
   }
 
   /**
