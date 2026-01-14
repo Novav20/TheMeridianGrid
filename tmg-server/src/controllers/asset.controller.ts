@@ -11,9 +11,21 @@ export class AssetController {
 
   public getAll = async (req: Request, res: Response) => {
     try {
-      const data = await this.assetService.getAllAssets();
+      const metadataFilter: Record<string, any> = {};
+
+      // 1. Extract metadata filters from query params
+      Object.keys(req.query).forEach((key) => {
+        if (key.startsWith("metadata.")) {
+          const fieldName = key.replace("metadata.", "");
+          metadataFilter[fieldName] = req.query[key];
+        }
+      });
+
+      // 2. Pass the filter object directly (Service handles empty objects)
+      const data = await this.assetService.getAllAssets(metadataFilter);
       res.json(data);
     } catch (error) {
+      console.error("Error in getAll assets:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   };

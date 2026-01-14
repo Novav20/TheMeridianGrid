@@ -20,13 +20,13 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[[CORE-01]]** | **[[FR-01]]** | Store AAS/DTDL Models | 🟢 **Done (Backend)** | 🧪 **Manual** | Verified via Insomnia creation. |
 | | **[[FR-02]]** | Unique Asset Names | 🟢 **Done (Backend)** | 🧪 **Manual** | Enforced via Prisma `@unique`. |
-| **[[CORE-02]]** | **[[FR-03]]** | Ingest MQTT Messages | 🔴 **Backlog** | ❌ **Untested** | Scheduled for Week 7. |
+| **[[CORE-02]]** | **[[FR-03]]** | Ingest MQTT Messages | 🔴 **Backlog** | ❌ **Untested** | Scheduled for Week 7 (HTTP part is done, MQTT still pending). |
 | | **[[FR-04]]** | Map JSONPath to Props | 🔴 **Backlog** | ❌ **Untested** | Scheduled for Week 7. |
-| | **[[FR-05]]** | Store Telemetry (Timescale) | 🟡 **In Progress** | ❌ **Untested** | Week 3 Priority. |
-| **[[CORE-04]]** | **[[FR-06]]** | Store Asset Metadata | 🟡 **In Progress** | 🧪 **Manual** | Creation works; Search filters pending. |
-| **[[CORE-05]]** | **[[FR-07]]** | Define Rules | 🔴 **Backlog** | ❌ **Untested** | Week 3 Priority. |
-| | **[[FR-08]]** | Evaluate Asset Status | 🔴 **Backlog** | ❌ **Untested** | Week 3 Priority. |
-| **[[CORE-09]]** | **[[FR-10]]** | Lifecycle State | 🟡 **In Progress** | 🧪 **Manual** | Enum exists; validation logic pending. |
+| | **[[FR-05]]** | Store Telemetry (Timescale) | 🟢 **Done (Backend)** | 🧪 **Manual** | Basic storage implemented. |
+| **[[CORE-04]]** | **[[FR-06]]** | Store Asset Metadata | 🟡 **In Progress** | 🧪 **Manual** | Creation works; Search filters pending (Refinement task). |
+| **[[CORE-05]]** | **[[FR-07]]** | Define Rules | 🟢 **Done (Backend)** | 🧪 **Manual** | CRUD for atomic rules implemented. |
+| | **[[FR-08]]** | Evaluate Asset Status | 🟢 **Done (Backend)** | 🧪 **Manual** | Basic rule evaluation for alerts implemented. |
+| **[[CORE-09]]** | **[[FR-10]]** | Lifecycle State | 🟡 **In Progress** | 🧪 **Manual** | Enum exists; validation logic pending (Refinement task). |
 | **[[CORE-42]]** | **[[FR-11]]** | Data Retention Policies | 🔴 **Backlog** | ❌ **Untested** | TimescaleDB feature (Week 3). |
 
 ---
@@ -62,9 +62,9 @@
 
 | User Story | Functional Req | Description | Implementation Status | Test Status | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **[[AUTO-32]]** | **[[FR-24]]** | Continuous Rule Eval | 🔴 **Backlog** | Week 3 (Simple Thresholds). Compound rules deferred to Phase 2. |
-| **[[AUTO-33]]** | **[[FR-25]]** | Create Alerts | 🔴 **Backlog** | ❌ **Untested** | Week 3 (Basic). |
-| | **[[FR-26]]** | Deduplicate Alerts | 🔴 **Backlog** | ❌ **Untested** | |
+| **[[AUTO-32]]** | **[[FR-24]]** | Continuous Rule Eval | 🟢 **Done (Backend)** | 🧪 **Manual** | Implemented via `EvaluationService`. |
+| **[[AUTO-33]]** | **[[FR-25]]** | Create Alerts | 🟢 **Done (Backend)** | 🧪 **Manual** | Alerts generated on rule breach. |
+| | **[[FR-26]]** | Deduplicate Alerts | 🟢 **Done (Backend)** | 🧪 **Manual** | Implemented in `EvaluationService`. |
 | **[[AUTO-35]]** | **[[FR-27]]** | Acknowledge Alerts | 🔴 **Backlog** | ❌ **Untested** | |
 | **[[AUTO-37]]** | **[[FR-28]]** | Safety Interlocks | 🔴 **Backlog** | ❌ **Untested** | Phase 2. |
 | | **[[FR-29]]** | Interlock Notifications | 🔴 **Backlog** | ❌ **Untested** | Phase 2. |
