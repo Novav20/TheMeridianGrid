@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../prisma/client/client";
+import { PrismaClient, AssetState } from "../../prisma/client/client";
 import { CreateTelemetryBatchDto } from "../schemas/telemetry.schema";
 import { EvaluationService } from "./evaluation.service";
 
@@ -16,13 +16,31 @@ export class TelemetryService {
    */
   async ingestTelemetry(batchData: CreateTelemetryBatchDto) {
     return this.prisma.$transaction(async (tx) => {
-      // 1. Add the bulk insert operation
-      await tx.telemetry.createMany({ data: batchData });
-
-      // 2. Identify unique assets to update 'lastSeen'
+      // 1. Identify unique assets in the batch
       const uniqueAssetIds = [...new Set(batchData.map((d) => d.assetId))];
 
-      // 3. Add update operations for each asset
+      // 2. Lifecycle Enforcement (CORE-09)
+      const assets = await tx.asset.findMany({
+        where: { id: { in: uniqueAssetIds } },
+        select: { id: true, name: true, state: true },
+      });
+
+      uniqueAssetIds.forEach((assetId) => {
+        const asset = assets.find((a) => a.id === assetId);
+        if (!asset) {
+          throw new Error(`Asset with ID ${assetId} not found`);
+        }
+        if (asset.state !== AssetState.ACTIVE) {
+          throw new Error(
+            `Asset ${asset.name} is not ACTIVE (Current: ${asset.state})`
+          );
+        }
+      });
+
+      // 3. Add the bulk insert operation
+      await tx.telemetry.createMany({ data: batchData });
+
+      // 4. Update operations for each asset
       const now = new Date();
       for (const assetId of uniqueAssetIds) {
         await tx.asset.update({
@@ -31,11 +49,10 @@ export class TelemetryService {
         });
       }
 
-      // 4. Trigger the evaluation logic
+      // 5. Trigger the evaluation logic
       await this.evaluationService.evaluateBatch(batchData, tx);
     });
   }
-
   /**
    * Retrieves historical telemetry data for a specific asset within a time range.
    * @param assetId The ID of the asset
