@@ -3,6 +3,9 @@ import Cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import assetRouter from "./routes/asset.routes";
+import telemetryRouter from "./routes/telemetry.routes";
+import ruleRouter from "./routes/rule.routes";
+import { globalErrorHandler } from "./middleware/error.middleware"; // Import the error handler
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
@@ -21,6 +24,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/assets", assetRouter);
+app.use("/api/telemetry", telemetryRouter);
+app.use("/api/rules", ruleRouter);
+
+// =========================================================
+// Error Handling Middleware (MUST be last)
+// =========================================================
+app.use(globalErrorHandler);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

@@ -29,11 +29,13 @@ services:
       # Note: 'db' refers to the service name defined below.
 
   # ---------------------------------------------------------------------------
-  # Database Service (PostgreSQL)
+  # Database Service (PostgreSQL + TimescaleDB)
   # ---------------------------------------------------------------------------
   db:
     restart: always
-    image: postgres:15-alpine
+    image: timescale/timescaledb:latest-pg15
+    # Preload the TimescaleDB library at startup
+    command: ["postgres", "-c", "shared_preload_libraries=timescaledb"]
     # Expose port for local tools (e.g., Prisma Studio, DBeaver)
     ports:
       - "${POSTGRES_PORT}:5432"

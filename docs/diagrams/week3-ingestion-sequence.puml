@@ -1,0 +1,98 @@
+@startuml week3-ingestion-sequence
+!theme aws-orange
+autonumber
+
+' --- Visual Identity ---
+!define PRIMARY #00CC99
+!define SECONDARY #EB2D8C
+!define TEXT #262730
+!define LIGHT #FFFFFF
+
+skinparam backgroundColor LIGHT
+skinparam defaultFontName "Segoe UI"
+skinparam sequence {
+    ArrowColor SECONDARY
+    ActorBorderColor PRIMARY
+    LifeLineBorderColor PRIMARY
+    LifeLineBackgroundColor LIGHT
+    
+    ParticipantBorderColor PRIMARY
+    ParticipantBackgroundColor LIGHT
+    ParticipantFontColor TEXT
+    
+    BoxBackgroundColor #F5F5F5
+    BoxBorderColor transparent
+}
+
+' --- Participants ---
+actor Client
+participant "Telemetry\nController" as Ctrl
+participant "Telemetry\nService" as Svc
+participant "Evaluation\nService" as Eval
+database "TimescaleDB\n(Prisma)" as DB
+
+' --- Logic ---
+Client -> Ctrl : POST /api/telemetry (Batch)
+activate Ctrl
+
+Ctrl -> Ctrl : Validate DTO (Zod)
+Ctrl -> Svc : ingestTelemetry(batch)
+activate Svc
+
+    group Prisma Transaction [ACID]
+        
+        note right of Svc : 1. Lifecycle Enforcement
+        Svc -> DB : findMany(Assets in batch)
+        activate DB
+        DB --> Svc : Assets[]
+        deactivate DB
+        
+        Svc -> Svc : Verify Asset.state == ACTIVE
+        alt Asset is ARCHIVED or DRAFT
+            Svc --> Ctrl : Error: Asset Inactive
+            Ctrl --> Client : 400 Bad Request
+        end
+
+        note right of Svc : 2. Bulk Insert
+        Svc -> DB : createMany(Telemetry)
+        activate DB
+        DB --> Svc : Success
+        deactivate DB
+
+        note right of Svc : 3. Heartbeat
+        loop For Each Unique Asset
+            Svc -> DB : update(lastSeen = now)
+        end
+
+        note right of Svc : 4. Rule Evaluation
+        Svc -> Eval : evaluateBatch(batch, tx)
+        activate Eval
+            
+            Eval -> DB : findMany(Active Rules)
+            activate DB
+            DB --> Eval : Rules[]
+            deactivate DB
+
+            loop For Each Point
+                Eval -> Eval : Check Threshold (GT/LT/EQ)
+                opt Breach Detected
+                    Eval -> DB : findFirst(Active Alert)
+                    
+                    alt New Alert Needed (Deduplication)
+                        Eval -> DB : create(Alert)
+                    end
+                end
+            end
+
+        Eval --> Svc : void
+        deactivate Eval
+
+    end group
+
+Svc --> Ctrl : Success
+deactivate Svc
+
+Ctrl --> Client : 201 Created
+deactivate Ctrl
+
+@enduml

@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../prisma/client/client";
+import { PrismaClient, Prisma } from "../../prisma/client/client";
 import { CreateAssetDto } from "../schemas/asset.schema";
 
 /**
@@ -10,10 +10,22 @@ export class AssetService {
   constructor(private prisma: PrismaClient) {}
 
   /**
-   * Retrieves all assets from the database.
+   * Retrieves all assets from the database, optionally filtered by metadata.
+   * @param metadataFilter Optional object containing key-value pairs to match in JSONB metadata
    */
-  async getAllAssets() {
-    return this.prisma.asset.findMany();
+  async getAllAssets(metadataFilter?: Prisma.InputJsonValue) {
+    const hasFilter =
+      metadataFilter && Object.keys(metadataFilter as object).length > 0;
+
+    return this.prisma.asset.findMany({
+      where: hasFilter
+        ? {
+            metadata: {
+              contains: metadataFilter,
+            } as any,
+          }
+        : {},
+    });
   }
 
   /**
