@@ -1,0 +1,115 @@
+@startuml week3-class-structure
+!theme aws-orange
+hide empty members
+
+' --- Visual Identity (Custom CSS via Skinparam) ---
+!define PRIMARY #00CC99
+!define SECONDARY #EB2D8C
+!define TEXT #262730
+!define LIGHT #FFFFFF
+
+skinparam backgroundColor LIGHT
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontColor TEXT
+skinparam shadowing false
+skinparam roundCorner 8
+
+skinparam class {
+    BackgroundColor LIGHT
+    ArrowColor SECONDARY
+    BorderColor PRIMARY
+    HeaderBackgroundColor PRIMARY
+    HeaderFontColor LIGHT
+    AttributeFontColor TEXT
+    MethodFontColor TEXT
+    BorderThickness 1.5
+}
+
+skinparam package {
+    BackgroundColor #F9F9F9
+    BorderColor TEXT
+    FontColor TEXT
+}
+
+' --- Classes ---
+
+package "Controllers" {
+    class TelemetryController {
+        + ingest(req, res)
+        + getHistory(req, res)
+        + getLatest(req, res)
+    }
+    class RuleController {
+        + create(req, res)
+        + update(req, res)
+        + delete(req, res)
+    }
+}
+
+package "Services" {
+    class TelemetryService {
+        + ingestTelemetry(batch)
+        + getHistory(assetId)
+        + getLatest(assetId)
+    }
+    
+    class EvaluationService {
+        + evaluateBatch(batch, tx)
+        - isBreached(value, op, threshold)
+    }
+
+    class RuleService {
+        + createRule(dto)
+        + updateRule(id, dto)
+    }
+}
+
+package "Database Models (Prisma)" {
+    class Asset {
+        + id: UUID
+        + state: AssetState
+        + lastSeen: DateTime
+        + heartbeatTimeout: Int
+    }
+
+    class Telemetry {
+        + time: DateTime
+        + assetId: UUID
+        + propertyName: String
+        + value: Float
+        --
+        (Hypertable)
+    }
+
+    class Rule {
+        + id: UUID
+        + metric: String
+        + operator: RuleOperator
+        + threshold: Float
+    }
+
+    class Alert {
+        + id: UUID
+        + status: AlertStatus
+        + severity: Severity
+    }
+}
+
+' --- Relationships ---
+
+TelemetryController ..> TelemetryService : uses
+RuleController ..> RuleService : uses
+
+TelemetryService --> EvaluationService : depends on\n(Dependency Injection)
+
+TelemetryService ..> Asset : updates lastSeen
+TelemetryService ..> Telemetry : inserts
+
+EvaluationService ..> Rule : reads
+EvaluationService ..> Alert : creates
+
+Asset "1" *-- "*" Telemetry : has
+Asset "1" *-- "*" Rule : has
+Rule "1" *-- "*" Alert : triggers
+
+@enduml
