@@ -48,6 +48,13 @@ graph TD;
 - [x] Created a modular API architecture (Service-Controller-Router).
 - [x] Implemented full CRUD for Asset Management with Zod validation.
 
+### Week 3: Core Features (Telemetry & Rules)
+- [x] Enabled TimescaleDB and created `telemetry` hypertable.
+- [x] Implemented transactional Telemetry Ingestion Service.
+- [x] Built Rules Engine with synchronous evaluation and alert deduplication.
+- [x] Verified system with end-to-end Simulation Script.
+- [x] Refined architecture with Global Error Handling and PlantUML documentation.
+
 ## Tech Stack
 - **Frontend:** React, TypeScript, Vite, Nginx
 - **Backend:** Node.js, Express, TypeScript
