@@ -4,6 +4,7 @@ import { PasswordService } from "../services/password.service";
 import { TokenService } from "../services/token.service";
 import { loginSchema, LoginDto } from "../schemas/auth.schema";
 import { AppError } from "../utils/AppError";
+import { ApiResponse } from "../utils/types";
 
 /**
  * Controller: AuthController
@@ -21,8 +22,8 @@ export class AuthController {
    * Handles user login by validating credentials and issuing a JWT via HttpOnly cookie.
    */
   public login = async (
-    req: Request<{}, any, LoginDto>,
-    res: Response,
+    req: Request<{}, ApiResponse, LoginDto>,
+    res: Response<ApiResponse>,
     next: NextFunction
   ) => {
     // 1. Validate inputs (Zod)
@@ -61,8 +62,9 @@ export class AuthController {
     // 6. Send response (Excluding passwordHash)
     const { passwordHash, ...userWithoutPassword } = user;
     res.status(200).json({
+      success: true,
       message: "Login successful",
-      user: userWithoutPassword,
+      data: userWithoutPassword,
     });
   };
 }
