@@ -1,15 +1,12 @@
+import "./config/env"; // MUST be the first import to load env vars before other imports
 import express from "express";
 import Cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
-import path from "path";
 import assetRouter from "./routes/asset.routes";
 import telemetryRouter from "./routes/telemetry.routes";
 import ruleRouter from "./routes/rule.routes";
 import authRouter from "./routes/auth.routes";
-import { globalErrorHandler } from "./middleware/error.middleware"; // Import the error handler
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+import { globalErrorHandler } from "./middleware/error.middleware";
 
 const app = express();
 const port = process.env.PORT || 3000;
