@@ -4,6 +4,7 @@ import { UserService } from "../services/user.service";
 import { PasswordService } from "../services/password.service";
 import { TokenService } from "../services/token.service";
 import { PrismaService } from "../services/prisma.service";
+import { authenticate } from "../middleware/auth.middleware";
 
 const router = Router();
 
@@ -22,5 +23,7 @@ const authController = new AuthController(
 
 // 3. Define routes
 router.post("/login", authController.login);
+router.post("/logout", authController.logout);
+router.get("/me", authenticate, authController.me);
 
 export default router;

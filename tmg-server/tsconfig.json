@@ -10,6 +10,9 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*", "src/**/*.d.ts", "prisma/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "prisma/**/*"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "files": true
+  }
 }

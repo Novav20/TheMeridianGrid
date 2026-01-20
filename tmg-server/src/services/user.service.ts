@@ -18,4 +18,17 @@ export class UserService {
       include: { role: true }, // We need the role for the JWT payload
     });
   }
+
+  /**
+   * Finds a user by their unique ID.
+   * Includes the role relation.
+   * @param id The UUID of the user.
+   */
+  async findById(id: string) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      include: { role: true },
+    });
+  }
 }
+
