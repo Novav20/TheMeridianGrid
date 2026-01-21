@@ -6,6 +6,7 @@ import assetRouter from "./routes/asset.routes";
 import telemetryRouter from "./routes/telemetry.routes";
 import ruleRouter from "./routes/rule.routes";
 import authRouter from "./routes/auth.routes";
+import userRouter from "./routes/user.routes";
 import { globalErrorHandler } from "./middleware/error.middleware";
 
 const app = express();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
 app.use("/api/assets", assetRouter);
 app.use("/api/telemetry", telemetryRouter);
 app.use("/api/rules", ruleRouter);

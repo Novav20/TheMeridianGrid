@@ -5,7 +5,7 @@ import { z } from "zod";
  * Purpose: Validates the request body for the POST /api/auth/login endpoint.
  */
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email format"),
+  email: z.email("Invalid email format"),
   password: z.string().min(1, "Password is required"),
 });
 

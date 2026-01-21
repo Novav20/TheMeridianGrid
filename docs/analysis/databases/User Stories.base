@@ -3,7 +3,7 @@ views:
     name: Table
     filters:
       and:
-        - file.inFolder("The-Meridian-Grid/docs/analysis/User Stories")
+        - file.inFolder("The-Meridian-Grid/docs/analysis/UserStories")
         - moscow == "MUST"
     order:
       - file.name

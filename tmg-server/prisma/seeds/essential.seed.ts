@@ -1,5 +1,6 @@
 import { PrismaClient, UserStatus } from "../client/client";
 import { PasswordService } from "../../src/services/password.service";
+import { SystemRole } from "../../src/config/roles";
 
 export async function seedEssential(prisma: PrismaClient) {
   console.log("Starting essential seeding...");
@@ -7,7 +8,7 @@ export async function seedEssential(prisma: PrismaClient) {
   const passwordService = new PasswordService();
 
   // 1. Seed Roles
-  const roles = ["ADMINISTRATOR", "INTEGRATOR", "OPERATOR", "VIEWER"];
+  const roles = Object.values(SystemRole);
   for (const roleName of roles) {
     await prisma.role.upsert({
       where: { name: roleName },
@@ -32,7 +33,7 @@ export async function seedEssential(prisma: PrismaClient) {
       passwordHash: hash,
       status: UserStatus.ACTIVE,
       role: {
-        connect: { name: "ADMINISTRATOR" },
+        connect: { name: SystemRole.ADMINISTRATOR },
       },
     },
   });

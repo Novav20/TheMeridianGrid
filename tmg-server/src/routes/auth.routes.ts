@@ -10,8 +10,8 @@ const router = Router();
 
 // 1. Instantiate dependencies (Manual DI)
 const prisma = PrismaService.getInstance().client;
-const userService = new UserService(prisma);
 const passwordService = new PasswordService();
+const userService = new UserService(prisma, passwordService);
 const tokenService = new TokenService();
 
 // 2. Instantiate controller

@@ -10,7 +10,7 @@ export const createAssetSchema = z.object({
   model: z.record(z.string(), z.any()),
   metadata: z.record(z.string(), z.any()).optional(),
   state: z.nativeEnum(AssetState).optional(),
-  parentId: z.string().uuid().optional(),
+  parentId: z.uuid().optional(),
 });
 /**
  * Zod schema for updating an existing asset (all fields optional).

@@ -3,6 +3,8 @@ import { AssetController } from "../controllers/asset.controller";
 import { AssetService } from "../services/asset.service";
 import { PrismaService } from "../services/prisma.service";
 import { authenticate } from "../middleware/auth.middleware";
+import { authorize } from "../middleware/rbac.middleware";
+import { SystemRole } from "../config/roles";
 
 const prisma = PrismaService.getInstance().client;
 const assetService = new AssetService(prisma);
@@ -14,9 +16,21 @@ const router = Router();
 router.use(authenticate);
 
 router.get("/", assetController.getAll);
-router.post("/", assetController.create);
+router.post(
+  "/",
+  authorize([SystemRole.ADMINISTRATOR, SystemRole.INTEGRATOR]),
+  assetController.create,
+);
 router.get("/:id", assetController.getById);
-router.patch("/:id", assetController.update);
-router.delete("/:id", assetController.delete);
+router.patch(
+  "/:id",
+  authorize([SystemRole.ADMINISTRATOR, SystemRole.INTEGRATOR]),
+  assetController.update,
+);
+router.delete(
+  "/:id",
+  authorize([SystemRole.ADMINISTRATOR, SystemRole.INTEGRATOR]),
+  assetController.delete,
+);
 
 export default router;
