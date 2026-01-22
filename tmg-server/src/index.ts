@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRouter);
-app.use("/api/users", userRouter);
+app.use("/api/users", userRouter);-
 app.use("/api/assets", assetRouter);
 app.use("/api/telemetry", telemetryRouter);
 app.use("/api/rules", ruleRouter);
