@@ -1,16 +1,11 @@
 import { Router } from "express";
-import { AssetController } from "../controllers/asset.controller";
-import { AssetService } from "../services/asset.service";
-import { PrismaService } from "../services/prisma.service";
 import { authenticate } from "../middleware/auth.middleware";
 import { authorize } from "../middleware/rbac.middleware";
 import { SystemRole } from "../config/roles";
-
-const prisma = PrismaService.getInstance().client;
-const assetService = new AssetService(prisma);
-const assetController = new AssetController(assetService);
+import { container } from "../config/container";
 
 const router = Router();
+const assetController = container.assetController;
 
 // Apply authentication middleware to all asset routes
 router.use(authenticate);

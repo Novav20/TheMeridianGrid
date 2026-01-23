@@ -1,13 +1,8 @@
 import { Router } from "express";
-import { RuleController } from "../controllers/rule.controller";
-import { RuleService } from "../services/rule.service";
-import { PrismaService } from "../services/prisma.service";
-
-const prisma = PrismaService.getInstance().client;
-const ruleService = new RuleService(prisma);
-const ruleController = new RuleController(ruleService);
+import { container } from "../config/container";
 
 const router = Router();
+const ruleController = container.ruleController;
 
 router.post("/", ruleController.create);
 router.get("/asset/:assetId", ruleController.getByAsset);

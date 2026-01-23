@@ -1,19 +1,11 @@
 import { Router } from "express";
-import { UserController } from "../controllers/user.controller";
-import { UserService } from "../services/user.service";
-import { PasswordService } from "../services/password.service";
-import { PrismaService } from "../services/prisma.service";
 import { authenticate } from "../middleware/auth.middleware";
 import { authorize } from "../middleware/rbac.middleware";
 import { SystemRole } from "../config/roles";
+import { container } from "../config/container";
 
 const router = Router();
-
-// 1. Instantiate dependencies (Manual DI)
-const prisma = PrismaService.getInstance().client;
-const passwordService = new PasswordService();
-const userService = new UserService(prisma, passwordService);
-const userController = new UserController(userService);
+const userController = container.userController;
 
 /**
  * Routes: /api/users
