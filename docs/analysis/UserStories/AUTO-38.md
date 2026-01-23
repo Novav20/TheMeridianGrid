@@ -7,6 +7,7 @@ actor: "[[System]]"
 points: 5
 moscow: SHOULD
 justification: "Vital for high-integrity control loops, but basic command sending (28) is the first step."
+functional_requirements: []
 ---
 
 # AUTO-38: Closed-Loop Feedback Verification

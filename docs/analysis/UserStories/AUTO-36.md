@@ -7,6 +7,7 @@ actor: "[[Device Integrator]]"
 points: 5
 moscow: SHOULD
 justification: "Powerful for closing the control loop, though manual operator intervention is the safer MVP start."
+functional_requirements: []
 ---
 
 # AUTO-36: Automated Action Definition

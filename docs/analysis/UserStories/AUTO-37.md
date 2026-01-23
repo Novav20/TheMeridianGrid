@@ -7,6 +7,9 @@ actor: "[[System]]"
 points: 8
 moscow: MUST
 justification: "Critical safety requirement to prevent automated commands from causing physical damage."
+functional_requirements:
+  - "[[FR-28]]"
+  - "[[FR-29]]"
 ---
 
 # AUTO-37: Safety Interlock Enforcement

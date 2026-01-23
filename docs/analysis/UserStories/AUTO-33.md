@@ -2,11 +2,14 @@
 id: AUTO-33
 title: Alert Generation & Lifecycle
 epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
-status: Backlog
+status: In Progress
 actor: "[[System]]"
 points: 3
 moscow: MUST
 justification: "Necessary for incident tracking, accountability, and operational response."
+functional_requirements:
+  - "[[FR-25]]"
+  - "[[FR-26]]"
 ---
 
 # AUTO-33: Alert Generation & Lifecycle

@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 3
 moscow: SHOULD
 justification: "Highly valuable for off-site responsiveness, but UI-based alerts are the MVP baseline."
+functional_requirements: []
 ---
 
 # AUTO-34: Notification Channel Management

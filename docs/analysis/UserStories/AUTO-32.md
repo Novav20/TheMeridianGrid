@@ -2,11 +2,14 @@
 id: AUTO-32
 title: Rule Engine Definition
 epic: "[[02_epics#Epic 4: Intelligent Automation & Control Assurance]]"
-status: Backlog
+status: In Progress
 actor: "[[Device Integrator]]"
 points: 5
 moscow: MUST
 justification: "Fundamental for transforming raw telemetry into actionable intelligence."
+functional_requirements:
+  - "[[FR-07]]"
+  - "[[FR-24]]"
 ---
 
 # AUTO-32: Rule Engine Definition

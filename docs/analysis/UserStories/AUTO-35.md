@@ -7,6 +7,8 @@ actor: "[[Operator]]"
 points: 3
 moscow: MUST
 justification: "The primary operational workflow for managing and silencing incidents."
+functional_requirements:
+  - "[[FR-27]]"
 ---
 
 # AUTO-35: Alert Acknowledgment Dashboard

@@ -7,6 +7,7 @@ actor: "[[Operator]]"
 points: 2
 moscow: COULD
 justification: "Useful for operational sanity, but users can manually disable rules as a workaround in v1.0."
+functional_requirements: []
 ---
 
 # AUTO-39: Maintenance Mode Suppression

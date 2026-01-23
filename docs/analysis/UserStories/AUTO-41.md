@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: COULD
 justification: "Part of the long-term 'Swarm Intelligence' vision, but standard user IDs suffice for MVP agents."
+functional_requirements: []
 ---
 
 # AUTO-41: Software Agent Registry

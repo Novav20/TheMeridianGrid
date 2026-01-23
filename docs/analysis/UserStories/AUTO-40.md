@@ -7,6 +7,7 @@ actor: "[[System]]"
 points: 5
 moscow: COULD
 justification: "Advanced UX for high-scale environments; individual alerts are acceptable for initial pilots."
+functional_requirements: []
 ---
 
 # AUTO-40: Alert Correlation & Grouping
