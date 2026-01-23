@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { TokenService } from "../services/token.service";
 import { AppError } from "../utils/AppError";
+import { container } from "../config/container";
 
-const tokenService = new TokenService();
+const tokenService = container.tokenService;
 
 /**
  * Middleware: authenticate

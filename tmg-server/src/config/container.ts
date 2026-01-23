@@ -19,6 +19,8 @@ import { RuleController } from "../controllers/rule.controller";
  * Instantiates and wires up all services and controllers.
  */
 class AppContainer {
+  public readonly tokenService: TokenService;
+
   public readonly authController: AuthController;
   public readonly userController: UserController;
   public readonly assetController: AssetController;
@@ -31,7 +33,7 @@ class AppContainer {
 
     // 2. Instantiate Services
     const passwordService = new PasswordService();
-    const tokenService = new TokenService();
+    this.tokenService = new TokenService();
     const userService = new UserService(prisma, passwordService);
     const evaluationService = new EvaluationService(prisma);
     const telemetryService = new TelemetryService(prisma, evaluationService);
@@ -42,7 +44,7 @@ class AppContainer {
     this.authController = new AuthController(
       userService,
       passwordService,
-      tokenService,
+      this.tokenService,
     );
     this.userController = new UserController(userService);
     this.assetController = new AssetController(assetService);

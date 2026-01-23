@@ -1,4 +1,5 @@
 @startuml week3-ingestion-sequence
+title Telemetry Ingestion Pipeline (Batch)
 !theme aws-orange
 autonumber
 
