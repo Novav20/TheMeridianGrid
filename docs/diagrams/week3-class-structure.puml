@@ -1,4 +1,5 @@
 @startuml week3-class-structure
+title Core Domain Class Structure (Assets & Telemetry)
 !theme aws-orange
 hide empty members
 

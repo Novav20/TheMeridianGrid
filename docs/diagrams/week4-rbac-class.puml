@@ -1,0 +1,124 @@
+@startuml week4-rbac-class
+title Role-Based Access Control (RBAC) & Scoping
+!theme aws-orange
+hide empty members
+
+' --- Visual Identity ---
+!define PRIMARY #00CC99
+!define SECONDARY #EB2D8C
+!define TEXT #262730
+!define LIGHT #FFFFFF
+
+skinparam backgroundColor LIGHT
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontColor TEXT
+skinparam shadowing false
+skinparam roundCorner 8
+
+skinparam class {
+    BackgroundColor LIGHT
+    ArrowColor SECONDARY
+    BorderColor PRIMARY
+    HeaderBackgroundColor PRIMARY
+    HeaderFontColor LIGHT
+    AttributeFontColor TEXT
+    MethodFontColor TEXT
+    BorderThickness 1.5
+}
+
+skinparam package {
+    BackgroundColor #F9F9F9
+    BorderColor TEXT
+    FontColor TEXT
+}
+
+' --- Domain Models (RBAC) ---
+package "Identity & Access Management (IAM)" {
+    class User {
+        + id: UUID
+        + email: String
+        + passwordHash: String
+        + status: UserStatus
+        --
+        (Soft Delete supported)
+    }
+
+    class Role {
+        + id: UUID
+        + name: String {unique}
+        + description: String
+    }
+
+    class Permission {
+        + id: UUID
+        + action: String
+        + resource: String
+    }
+
+    class AuditLog {
+        + id: UUID
+        + action: String
+        + resourceId: UUID
+        + timestamp: DateTime
+    }
+}
+
+' --- Domain Models (Scoping) ---
+package "Asset Management Scope" {
+    class AssetGroup {
+        + id: UUID
+        + name: String
+        + description: String
+    }
+
+    class Asset {
+        + id: UUID
+        + name: String
+    }
+}
+
+' --- Application Logic ---
+package "Application Layer" {
+    class AuthController {
+        + login()
+        + logout()
+        + me()
+    }
+
+    class UserController {
+        + create()
+        + update()
+        + disable()
+    }
+
+    class "Middleware" as MW {
+        + authenticate(req, res, next)
+        + authorize(roles[])
+    }
+    
+    class AppContainer {
+        + authController
+        + userController
+    }
+}
+
+' --- Relationships ---
+
+' Database Relations
+User "many" --> "1" Role : has >
+Role "1" *-- "many" Permission : contains >
+User "many" <--> "many" AssetGroup : scoped to >
+AssetGroup "many" <--> "many" Asset : groups >
+User "1" <-- "many" AuditLog : performs >
+
+' Application Relations
+AppContainer *-- AuthController
+AppContainer *-- UserController
+
+AuthController ..> User : authenticates
+UserController ..> User : manages
+
+MW ..> User : reads (req.user)
+MW ..> Role : verifies
+
+@enduml

@@ -1,0 +1,89 @@
+@startuml week4-auth-flow
+title Authentication Flow (JWT + HttpOnly Cookie)
+!theme aws-orange
+autonumber
+
+' --- Visual Identity ---
+!define PRIMARY #00CC99
+!define SECONDARY #EB2D8C
+!define TEXT #262730
+!define LIGHT #FFFFFF
+
+skinparam backgroundColor LIGHT
+skinparam defaultFontName "Segoe UI"
+skinparam sequence {
+    ArrowColor SECONDARY
+    ActorBorderColor PRIMARY
+    LifeLineBorderColor PRIMARY
+    LifeLineBackgroundColor LIGHT
+    
+    ParticipantBorderColor PRIMARY
+    ParticipantBackgroundColor LIGHT
+    ParticipantFontColor TEXT
+    
+    BoxBackgroundColor #F5F5F5
+    BoxBorderColor transparent
+}
+
+' --- Participants ---
+actor Client
+participant "Auth\nController" as Auth
+participant "User\nService" as UserSvc
+participant "Password\nService" as PwdSvc
+participant "Token\nService" as TokenSvc
+database "PostgreSQL" as DB
+
+' --- Login Process ---
+== Login Process ==
+Client -> Auth: POST /api/auth/login\n{email, password}
+activate Auth
+
+Auth -> UserSvc: findByEmail(email)
+activate UserSvc
+UserSvc -> DB: SELECT * FROM users WHERE email = ?
+activate DB
+DB --> UserSvc: User Record (with passwordHash)
+deactivate DB
+UserSvc --> Auth: User Entity
+deactivate UserSvc
+
+alt User Not Found
+    Auth --> Client: 401 Unauthorized
+end
+
+Auth -> PwdSvc: verify(hash, inputPassword)
+activate PwdSvc
+PwdSvc --> Auth: boolean (isValid)
+deactivate PwdSvc
+
+alt Invalid Password
+    Auth --> Client: 401 Unauthorized
+end
+
+Auth -> TokenSvc: signToken({userId, role})
+activate TokenSvc
+TokenSvc --> Auth: JWT String
+deactivate TokenSvc
+
+Auth --> Client: 200 OK\nSet-Cookie: token=JWT; HttpOnly; Secure
+deactivate Auth
+
+' --- Protected Route ---
+== Protected Route (e.g., /me) ==
+Client -> Auth: GET /api/auth/me\nCookie: token=JWT
+activate Auth
+
+Auth -> TokenSvc: verifyToken(token)
+activate TokenSvc
+TokenSvc --> Auth: Payload {userId, role}
+deactivate TokenSvc
+
+Auth -> UserSvc: findById(userId)
+activate UserSvc
+UserSvc --> Auth: User Entity
+deactivate UserSvc
+
+Auth --> Client: 200 OK\n{ user: { ... } }
+deactivate Auth
+
+@enduml

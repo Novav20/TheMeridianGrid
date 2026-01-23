@@ -1,6 +1,7 @@
 import { PrismaClient, AssetState } from "../../prisma/client/client";
 import { CreateTelemetryBatchDto } from "../schemas/telemetry.schema";
 import { EvaluationService } from "./evaluation.service";
+import { AppError } from "../utils/AppError";
 
 export class TelemetryService {
   constructor(
@@ -28,10 +29,11 @@ export class TelemetryService {
       uniqueAssetIds.forEach((assetId) => {
         const asset = assets.find((a) => a.id === assetId);
         if (!asset) {
-          throw new Error(`Asset with ID ${assetId} not found`);
+          throw new AppError(404, `Asset with ID ${assetId} not found`);
         }
         if (asset.state !== AssetState.ACTIVE) {
-          throw new Error(
+          throw new AppError(
+            400,
             `Asset ${asset.name} is not ACTIVE (Current: ${asset.state})`
           );
         }
@@ -53,6 +55,7 @@ export class TelemetryService {
       await this.evaluationService.evaluateBatch(batchData, tx);
     });
   }
+
   /**
    * Retrieves historical telemetry data for a specific asset within a time range.
    * @param assetId The ID of the asset

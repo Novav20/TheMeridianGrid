@@ -55,8 +55,36 @@ graph TD;
 - [x] Verified system with end-to-end Simulation Script.
 - [x] Refined architecture with Global Error Handling and PlantUML documentation.
 
+### Week 4: Authentication & Security (IAM)
+- [x] Implemented Secure Authentication (Argon2id + JWT + HttpOnly Cookies).
+- [x] Established Role-Based Access Control (RBAC) with `ADMINISTRATOR`, `INTEGRATOR`, `OPERATOR`, `VIEWER` roles.
+- [x] Built User Management API (CRUD) protected by RBAC.
+- [x] Refactored architecture with Centralized Dependency Injection (`AppContainer`).
+- [x] Implemented robust Integration Testing infrastructure with isolated Test Database.
+
+## Usage Guide
+
+### Authentication
+The API is now protected. To access protected endpoints (like Asset Management), you must first login.
+
+**Default Credentials:**
+- **Email:** `admin@tmg.com`
+- **Password:** `admin123`
+
+**Login Request:**
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@tmg.com",
+  "password": "admin123"
+}
+```
+*The server will set a `token` HttpOnly cookie automatically.*
+
 ## Tech Stack
 - **Frontend:** React, TypeScript, Vite, Nginx
 - **Backend:** Node.js, Express, TypeScript
-- **Database:** PostgreSQL
+- **Database:** PostgreSQL (TimescaleDB Extension)
 - **Orchestration:** Docker Compose

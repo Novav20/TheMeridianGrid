@@ -1,23 +1,54 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { TelemetryService } from "../services/telemetry.service";
-import { createTelemetryBatchSchema } from "../schemas/telemetry.schema";
-import { AppError } from "../utils/AppError"; // Import AppError
+import {
+  createTelemetryBatchSchema,
+  CreateTelemetryBatchDto,
+} from "../schemas/telemetry.schema";
+import { AppError } from "../utils/AppError";
+import { ApiResponse } from "../utils/types";
+import { Telemetry } from "../../prisma/client/client";
 
+/**
+ * Controller: TelemetryController
+ * Purpose: Handles HTTP traffic for Telemetry ingestion and retrieval.
+ */
 export class TelemetryController {
   constructor(private telemetryService: TelemetryService) {}
 
-  public ingest = async (req: Request, res: Response) => {
-    const batchData = createTelemetryBatchSchema.parse(req.body); // ZodError will be caught by global handler
-    const result = await this.telemetryService.ingestTelemetry(batchData);
-    res.status(201).json(result);
+  /**
+   * Ingests a batch of telemetry data points.
+   */
+  public ingest = async (
+    req: Request<{}, ApiResponse, CreateTelemetryBatchDto>,
+    res: Response<ApiResponse>,
+    next: NextFunction
+  ) => {
+    const batchData = createTelemetryBatchSchema.parse(req.body);
+    await this.telemetryService.ingestTelemetry(batchData);
+    res.status(201).json({
+      success: true,
+      message: "Telemetry ingested successfully",
+    });
   };
 
-  public getHistory = async (req: Request, res: Response) => {
+  /**
+   * Retrieves historical telemetry data for a specific asset.
+   */
+  public getHistory = async (
+    req: Request<
+      { assetId: string },
+      ApiResponse<Telemetry[]>,
+      {},
+      { start: string; end: string }
+    >,
+    res: Response<ApiResponse<Telemetry[]>>,
+    next: NextFunction
+  ) => {
     const { assetId } = req.params;
     const { start, end } = req.query;
 
-    const startDate = new Date(start as string);
-    const endDate = new Date(end as string);
+    const startDate = new Date(start);
+    const endDate = new Date(end);
 
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
       throw new AppError(400, "Invalid start or end date");
@@ -28,10 +59,20 @@ export class TelemetryController {
       startDate,
       endDate
     );
-    res.status(200).json(data);
+    res.status(200).json({
+      success: true,
+      data,
+    });
   };
 
-  public getLatest = async (req: Request, res: Response) => {
+  /**
+   * Retrieves the most recent telemetry data point for an asset.
+   */
+  public getLatest = async (
+    req: Request<{ assetId: string }, ApiResponse<Telemetry>>,
+    res: Response<ApiResponse<Telemetry>>,
+    next: NextFunction
+  ) => {
     const { assetId } = req.params;
     const data = await this.telemetryService.getLatest(assetId);
 
@@ -39,6 +80,9 @@ export class TelemetryController {
       throw new AppError(404, "No telemetry found for this asset");
     }
 
-    res.status(200).json(data);
+    res.status(200).json({
+      success: true,
+      data,
+    });
   };
 }

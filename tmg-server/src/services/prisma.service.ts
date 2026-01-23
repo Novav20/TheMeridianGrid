@@ -1,10 +1,6 @@
 import { PrismaClient } from "../../prisma/client/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
-import * as dotenv from "dotenv";
-import path from "path";
-
-dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 /**
  * Service: PrismaService
@@ -21,10 +17,24 @@ export class PrismaService {
 
     // 2. If missing (Local Dev), build it from individual components in .env
     if (!connectionString) {
-      const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB } = process.env;
-      
-      if (!POSTGRES_USER || !POSTGRES_PASSWORD || !POSTGRES_HOST || !POSTGRES_PORT || !POSTGRES_DB) {
-        throw new Error("Database configuration is incomplete. Ensure DATABASE_URL or all POSTGRES_* variables are set.");
+      const {
+        POSTGRES_USER,
+        POSTGRES_PASSWORD,
+        POSTGRES_HOST,
+        POSTGRES_PORT,
+        POSTGRES_DB,
+      } = process.env;
+
+      if (
+        !POSTGRES_USER ||
+        !POSTGRES_PASSWORD ||
+        !POSTGRES_HOST ||
+        !POSTGRES_PORT ||
+        !POSTGRES_DB
+      ) {
+        throw new Error(
+          "Database configuration is incomplete. Ensure DATABASE_URL or all POSTGRES_* variables are set.",
+        );
       }
 
       connectionString = `postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
@@ -32,7 +42,7 @@ export class PrismaService {
 
     const pool = new Pool({ connectionString });
     const adapter = new PrismaPg(pool);
-    
+
     this.client = new PrismaClient({ adapter });
   }
 

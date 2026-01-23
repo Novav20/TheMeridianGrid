@@ -1,7 +1,13 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { AssetService } from "../services/asset.service";
-import { createAssetSchema, updateAssetSchema } from "../schemas/asset.schema";
+import {
+  createAssetSchema,
+  updateAssetSchema,
+  CreateAssetDto,
+} from "../schemas/asset.schema";
 import { AppError } from "../utils/AppError";
+import { ApiResponse } from "../utils/types";
+import { Asset } from "../../prisma/client/client";
 
 /**
  * Controller: AssetController
@@ -10,7 +16,14 @@ import { AppError } from "../utils/AppError";
 export class AssetController {
   constructor(private assetService: AssetService) {}
 
-  public getAll = async (req: Request, res: Response) => {
+  /**
+   * Retrieves all assets, optionally filtered by metadata query parameters.
+   */
+  public getAll = async (
+    req: Request<{}, ApiResponse<Asset[]>, {}, Record<string, any>>,
+    res: Response<ApiResponse<Asset[]>>,
+    next: NextFunction
+  ) => {
     const metadataFilter: Record<string, any> = {};
 
     Object.keys(req.query).forEach((key) => {
@@ -21,16 +34,37 @@ export class AssetController {
     });
 
     const data = await this.assetService.getAllAssets(metadataFilter);
-    res.json(data);
+    res.status(200).json({
+      success: true,
+      data,
+    });
   };
 
-  public create = async (req: Request, res: Response) => {
-    const validatedData = createAssetSchema.parse(req.body); // ZodError will be caught by global handler
+  /**
+   * Creates a new digital asset.
+   */
+  public create = async (
+    req: Request<{}, ApiResponse<Asset>, CreateAssetDto>,
+    res: Response<ApiResponse<Asset>>,
+    next: NextFunction
+  ) => {
+    const validatedData = createAssetSchema.parse(req.body);
     const asset = await this.assetService.createAsset(validatedData);
-    res.status(201).json(asset);
+    res.status(201).json({
+      success: true,
+      message: "Asset created successfully",
+      data: asset,
+    });
   };
 
-  public getById = async (req: Request, res: Response) => {
+  /**
+   * Retrieves a single asset by its UUID.
+   */
+  public getById = async (
+    req: Request<{ id: string }, ApiResponse<Asset>>,
+    res: Response<ApiResponse<Asset>>,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
     const asset = await this.assetService.getAssetById(id);
 
@@ -38,24 +72,44 @@ export class AssetController {
       throw new AppError(404, "Asset not found");
     }
 
-    res.json(asset);
+    res.status(200).json({
+      success: true,
+      data: asset,
+    });
   };
 
-  public update = async (req: Request, res: Response) => {
+  /**
+   * Updates an existing asset.
+   */
+  public update = async (
+    req: Request<{ id: string }, ApiResponse<Asset>, Partial<CreateAssetDto>>,
+    res: Response<ApiResponse<Asset>>,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
     const validatedData = updateAssetSchema.parse(req.body);
-    const updatedAsset = await this.assetService.updateAsset(
-      id,
-      validatedData
-    );
-    res.json(updatedAsset);
-    // Prisma P2025 errors will now be caught by the global handler
+    const updatedAsset = await this.assetService.updateAsset(id, validatedData);
+
+    res.status(200).json({
+      success: true,
+      message: "Asset updated successfully",
+      data: updatedAsset,
+    });
   };
 
-  public delete = async (req: Request, res: Response) => {
+  /**
+   * Deletes an asset.
+   */
+  public delete = async (
+    req: Request<{ id: string }, ApiResponse>,
+    res: Response<ApiResponse>,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
     await this.assetService.deleteAsset(id);
-    res.status(204).send();
-    // Prisma P2025 errors will now be caught by the global handler
+    res.status(200).json({
+      success: true,
+      message: "Asset deleted successfully",
+    });
   };
 }
