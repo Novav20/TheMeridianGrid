@@ -3,6 +3,8 @@ id: USE-13
 title: Accessibility
 epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 moscow: SHOULD
+status_frontend: Backlog
+status_test: Untested
 ---
 
 # USE-13: Accessibility

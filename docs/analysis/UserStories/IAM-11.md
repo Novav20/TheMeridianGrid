@@ -2,11 +2,13 @@
 id: IAM-11
 title: User Onboarding & CRUD
 epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
-status: Backlog
+status: In Progress
 actor: "[[System Administrator]]"
 points: 3
 moscow: MUST
 justification: "Fundamental for any multi-user application; essential for project collaboration."
+functional_requirements:
+  - "[[FR-12]]"
 ---
 
 # IAM-11: User Onboarding & CRUD

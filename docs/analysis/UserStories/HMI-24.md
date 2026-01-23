@@ -7,6 +7,8 @@ actor: "[[Device Integrator]]"
 points: 5
 moscow: MUST
 justification: "Standard visualizations (charts, gauges) are required to translate raw data into information."
+functional_requirements:
+  - "[[FR-20]]"
 ---
 
 # HMI-24: Core Widget Library

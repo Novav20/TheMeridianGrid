@@ -7,6 +7,7 @@ actor: "[[User]]"
 points: 5
 moscow: SHOULD
 justification: "Critical for high-security industrial compliance, but standard auth is sufficient for initial pilot."
+functional_requirements: []
 ---
 
 # IAM-15: Multi-Factor Authentication (MFA)

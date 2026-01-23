@@ -3,6 +3,8 @@ id: SEC-08
 title: Audit Immutability
 epic: "[[02_epics#Epic 2: Identity, Access & Role Management]]"
 moscow: SHOULD
+status_backend: Backlog
+status_test: Untested
 ---
 
 # SEC-08: Audit Immutability

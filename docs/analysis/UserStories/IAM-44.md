@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 3
 moscow: SHOULD
 justification: "Critical for proactive maintenance, but manual container monitoring is feasible during MVP phase."
+functional_requirements: []
 ---
 
 # IAM-44: Platform Health Monitoring

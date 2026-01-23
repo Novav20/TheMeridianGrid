@@ -2,11 +2,13 @@
 id: CORE-09
 title: Asset Lifecycle Management (Activate/Archive)
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
-status: Backlog
+status: In Progress
 actor: "[[Device Integrator]]"
 points: 3
 moscow: MUST
 justification: "Prevents system noise and alert pollution from half-configured assets."
+functional_requirements:
+  - "[[FR-10]]"
 ---
 
 # CORE-09: Asset Lifecycle Management (Activate/Archive)

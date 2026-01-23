@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: SHOULD
 justification: "Improves efficiency and consistency, but manual asset creation is sufficient for an initial pilot."
+functional_requirements: []
 ---
 
 # CORE-06: Asset Type Templates (Class Definition)

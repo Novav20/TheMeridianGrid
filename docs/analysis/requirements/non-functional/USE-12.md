@@ -3,6 +3,8 @@ id: USE-12
 title: Learnability
 epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 moscow: MUST
+status_frontend: Backlog
+status_test: Untested
 ---
 
 # USE-12: Learnability

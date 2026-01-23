@@ -3,6 +3,10 @@ id: USE-14
 title: Error Feedback
 epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 moscow: MUST
+status_backend: Done
+status_frontend: Backlog
+status_test: Verified
+implementation_notes: "Global Error Handler provides standardized error messages."
 ---
 
 # USE-14: Error Feedback

@@ -7,6 +7,7 @@ actor: "[[Operator]]"
 points: 5
 moscow: COULD
 justification: "Nice to have for remote monitoring, but industrial tasks are primarily performed on workstations/tablets."
+functional_requirements: []
 ---
 
 # HMI-31: Adaptive Mobile Layout

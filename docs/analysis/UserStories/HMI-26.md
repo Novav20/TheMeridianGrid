@@ -7,6 +7,8 @@ actor: "[[Operator]]"
 points: 5
 moscow: MUST
 justification: "Real-time feedback is the primary expectation for any operational dashboard."
+functional_requirements:
+  - "[[FR-22]]"
 ---
 
 # HMI-26: Real-time Telemetry Stream (WebSockets)

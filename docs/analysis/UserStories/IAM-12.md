@@ -2,11 +2,13 @@
 id: IAM-12
 title: Role Assignment (RBAC)
 epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
-status: Backlog
+status: In Progress
 actor: "[[System Administrator]]"
 points: 3
 moscow: MUST
 justification: "Critical for strictly separating 'Integrator' (Builder) from 'Operator' (User) functions."
+functional_requirements:
+  - "[[FR-13]]"
 ---
 
 # IAM-12: Role Assignment (RBAC)

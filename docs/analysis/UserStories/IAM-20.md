@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: COULD
 justification: "Unique value prop, but regular accounts can be repurposed as guest accounts for initial testing."
+functional_requirements: []
 ---
 
 # IAM-20: "Coopetitor" Guest Access

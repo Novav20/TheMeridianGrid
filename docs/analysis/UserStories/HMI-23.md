@@ -7,6 +7,8 @@ actor: "[[Device Integrator]]"
 points: 5
 moscow: MUST
 justification: "Core 'Flexibility' hypothesis; differentiates TMG from static, rigid legacy SCADA systems."
+functional_requirements:
+  - "[[FR-19]]"
 ---
 
 # HMI-23: Drag-and-Drop Grid Layout

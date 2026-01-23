@@ -3,6 +3,8 @@ id: PERF-01
 title: Latency
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: MUST
+status_backend: Untested
+status_test: Untested
 ---
 
 # PERF-01: Latency

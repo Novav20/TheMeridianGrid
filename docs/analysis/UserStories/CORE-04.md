@@ -2,11 +2,13 @@
 id: CORE-04
 title: Asset Metadata Tagging
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
-status: Backlog
+status: In Progress
 actor: "[[Device Integrator]]"
 points: 2
 moscow: MUST
 justification: "Essential for identifying physical hardware (serial numbers, manufacturers) in the registry."
+functional_requirements:
+  - "[[FR-06]]"
 ---
 
 # CORE-04: Asset Metadata Tagging

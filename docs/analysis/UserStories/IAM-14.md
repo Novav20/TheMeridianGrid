@@ -2,11 +2,18 @@
 id: IAM-14
 title: Secure Login & Authentication
 epic: "[[02_epics#Epic 2: Identity, Access & Role Lifecycle Management]]"
-status: Backlog
+status: In Progress
 actor: "[[User]]"
 points: 3
 moscow: MUST
 justification: "The entry point for all users; must be secure and functional from Day 1."
+functional_requirements:
+  - "[[FR-14]]"
+  - "[[FR-15]]"
+non_functional_requirements:
+  - "[[SEC-05]]"
+  - "[[SEC-06]]"
+  - "[[SEC-07]]"
 ---
 
 # IAM-14: Secure Login & Authentication

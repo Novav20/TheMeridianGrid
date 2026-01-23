@@ -7,6 +7,8 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: MUST
 justification: "Ensures accountability for actions, which is vital for safe remote control (Epic 4)."
+functional_requirements:
+  - "[[FR-16]]"
 ---
 
 # IAM-18: Audit Logs (User Activity)

@@ -3,6 +3,8 @@ id: PERF-02
 title: Throughput
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: MUST
+status_backend: Untested
+status_test: Untested
 ---
 
 # PERF-02: Throughput

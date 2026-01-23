@@ -3,6 +3,9 @@ id: MAINT-16
 title: Code Style
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: MUST
+status_backend: In Progress
+status_frontend: Backlog
+status_test: Manual
 ---
 
 # MAINT-16: Code Style

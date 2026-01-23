@@ -7,6 +7,8 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: MUST
 justification: "Security and data isolation are non-negotiable architectural pillars."
+functional_requirements:
+  - "[[FR-09]]"
 ---
 
 # CORE-07: Asset-Level Access Control

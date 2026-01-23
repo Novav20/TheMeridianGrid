@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: COULD
 justification: "Predefined roles are sufficient for MVP; dynamic role creation adds non-essential complexity."
+functional_requirements: []
 ---
 
 # IAM-16: Custom Role Definition

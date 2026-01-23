@@ -3,6 +3,9 @@ id: SEC-05
 title: Encryption in Transit
 epic: "[[02_epics#Epic 2: Identity, Access & Role Management]]"
 moscow: MUST
+status_backend: In Progress
+status_test: Manual
+implementation_notes: "Docker network isolation active. TLS termination at Nginx pending."
 ---
 
 # SEC-05: Encryption in Transit

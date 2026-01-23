@@ -7,6 +7,8 @@ actor: "[[Operator]]"
 points: 3
 moscow: MUST
 justification: "Required for troubleshooting and trend analysis; essential for operational oversight."
+functional_requirements:
+  - "[[FR-23]]"
 ---
 
 # HMI-27: Historical Data Filter

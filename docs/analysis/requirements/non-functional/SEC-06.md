@@ -3,6 +3,9 @@ id: SEC-06
 title: Encryption at Rest
 epic: "[[02_epics#Epic 2: Identity, Access & Role Management]]"
 moscow: MUST
+status_backend: Done
+status_test: Verified
+implementation_notes: "Argon2id hashing for passwords implemented."
 ---
 
 # SEC-06: Encryption at Rest

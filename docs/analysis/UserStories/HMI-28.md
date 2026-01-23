@@ -7,6 +7,7 @@ actor: "[[Operator]]"
 points: 5
 moscow: SHOULD
 justification: "Powerful feature for closing the loop, but monitoring (Read) is the first priority for MVP."
+functional_requirements: []
 ---
 
 # HMI-28: Remote Control Widget

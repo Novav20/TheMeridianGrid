@@ -7,6 +7,9 @@ actor: "[[Operator]]"
 points: 2
 moscow: SHOULD
 justification: "Requested in BPA for control room health/safety (glare reduction), though not a core functional block."
+functional_requirements: []
+non_functional_requirements:
+  - "[[USE-13]]"
 ---
 
 # HMI-43: UI Theming & Accessibility

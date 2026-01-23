@@ -7,6 +7,7 @@ actor: "[[Operator]]"
 points: 2
 moscow: COULD
 justification: "Valuable for factory floor displays, but standard full-screen browser mode is a viable MVP workaround."
+functional_requirements: []
 ---
 
 # HMI-30: Full-screen Kiosk Mode

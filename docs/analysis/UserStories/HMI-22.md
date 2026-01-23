@@ -7,6 +7,8 @@ actor: "[[Device Integrator]]"
 points: 3
 moscow: MUST
 justification: "Allows users to organize views by site, asset group, or job function."
+functional_requirements:
+  - "[[FR-18]]"
 ---
 
 # HMI-22: Dashboard CRUD

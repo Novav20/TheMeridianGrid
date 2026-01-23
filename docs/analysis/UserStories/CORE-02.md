@@ -2,11 +2,18 @@
 id: CORE-02
 title: Real-time Telemetry Ingestion
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
-status: Backlog
+status: In Progress
 actor: "[[Device Integrator]]"
 points: 3
 moscow: MUST
 justification: "Core technical requirement; data ingestion is the primary function of the platform."
+functional_requirements:
+  - "[[FR-03]]"
+  - "[[FR-04]]"
+  - "[[FR-05]]"
+non_functional_requirements:
+  - "[[PERF-01]]"
+  - "[[PERF-02]]"
 ---
 
 # CORE-02: Real-time Telemetry Ingestion

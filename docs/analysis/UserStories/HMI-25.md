@@ -7,6 +7,8 @@ actor: "[[Device Integrator]]"
 points: 3
 moscow: MUST
 justification: "Enables the 'Low-Code' promise; allowing integrators to bind data without writing code."
+functional_requirements:
+  - "[[FR-21]]"
 ---
 
 # HMI-25: Dynamic Data Binding

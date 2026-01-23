@@ -7,6 +7,8 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: MUST
 justification: "Core security feature to ensure users only see the assets they are responsible for."
+functional_requirements:
+  - "[[FR-09]]"
 ---
 
 # IAM-13: Asset Scope Assignment

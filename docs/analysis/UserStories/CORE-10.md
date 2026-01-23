@@ -7,6 +7,7 @@ actor: "[[Device Integrator]]"
 points: 3
 moscow: SHOULD
 justification: "Greatly improves the developer/integrator experience, though technically the data flows without it."
+functional_requirements: []
 ---
 
 # CORE-10: Telemetry Connection Tester

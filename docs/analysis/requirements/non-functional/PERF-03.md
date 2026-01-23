@@ -3,6 +3,8 @@ id: PERF-03
 title: Response Time
 epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 moscow: MUST
+status_backend: Untested
+status_test: Untested
 ---
 
 # PERF-03: Response Time

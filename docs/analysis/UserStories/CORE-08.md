@@ -7,6 +7,7 @@ actor: "[[Device Integrator]]"
 points: 8
 moscow: COULD
 justification: "High technical complexity; while valuable for audit, basic telemetry is the MVP priority."
+functional_requirements: []
 ---
 
 # CORE-08: Asset Configuration Versioning

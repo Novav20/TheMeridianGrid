@@ -7,6 +7,8 @@ actor: "[[System Administrator]]"
 points: 5
 moscow: MUST
 justification: "Prevents database disk exhaustion; critical for platform stability in continuous use."
+functional_requirements:
+  - "[[FR-11]]"
 ---
 
 # CORE-42: Data Retention Policy Management

@@ -7,6 +7,7 @@ actor: "[[Device Integrator]]"
 points: 3
 moscow: SHOULD
 justification: "Logical grouping and hierarchy improve UX and scalability, but flat lists are functional for a basic MVP."
+functional_requirements: []
 ---
 
 # CORE-03: Relationship Management

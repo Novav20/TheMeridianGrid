@@ -2,11 +2,14 @@
 id: CORE-05
 title: Asset Status & Health Definition
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
-status: Backlog
+status: In Progress
 actor: "[[Device Integrator]]"
 points: 5
 moscow: MUST
 justification: "Defines the 'Intelligence' of the platform; providing actionable status is a core BPA requirement."
+functional_requirements:
+  - "[[FR-07]]"
+  - "[[FR-08]]"
 ---
 
 # CORE-05: Asset Status & Health Definition

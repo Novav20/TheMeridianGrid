@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 3
 moscow: SHOULD
 justification: "Basic security hygiene; necessary for industrial pilots but less critical than core auth."
+functional_requirements: []
 ---
 
 # IAM-17: Password Policies & Rotation

@@ -3,6 +3,8 @@ id: PERF-04
 title: Database Efficiency
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: SHOULD
+status_backend: Untested
+status_test: Untested
 ---
 
 # PERF-04: Database Efficiency

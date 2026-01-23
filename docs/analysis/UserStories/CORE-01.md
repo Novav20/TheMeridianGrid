@@ -2,11 +2,14 @@
 id: CORE-01
 title: Asset Onboarding & Semantic Modeling
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
-status: Backlog
+status: In Progress
 actor: "[[Device Integrator]]"
 points: 5
 moscow: MUST
 justification: "Fundamental for creating the digital twin foundation; without assets, the system has no purpose."
+functional_requirements:
+  - "[[FR-01]]"
+  - "[[FR-02]]"
 ---
 
 # CORE-01: Asset Onboarding & Semantic Modeling

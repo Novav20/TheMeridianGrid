@@ -7,6 +7,7 @@ actor: "[[System Administrator]]"
 points: 2
 moscow: SHOULD
 justification: "Important defensive security, but basic firewall/auth provides enough protection for MVP."
+functional_requirements: []
 ---
 
 # IAM-19: Account Lockout/Suspension

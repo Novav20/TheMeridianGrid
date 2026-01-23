@@ -7,6 +7,7 @@ actor: "[[Device Integrator]]"
 points: 3
 moscow: SHOULD
 justification: "Important for enterprise team collaboration, but secondary to dashboard creation."
+functional_requirements: []
 ---
 
 # HMI-29: Dashboard Sharing/Publishing
