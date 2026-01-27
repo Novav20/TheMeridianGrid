@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { getHello } from "./api/client";
+import User from "@tmg/shared";
 
 function App() {
   const [message, setMessage] = useState<string>("Connecting to server...");
