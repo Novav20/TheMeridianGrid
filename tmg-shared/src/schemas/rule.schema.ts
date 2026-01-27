@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RuleOperator, Severity } from "../../prisma/client/client";
+import { RuleOperator, Severity } from "../index.js";
 
 /**
  * Zod schema for creating a new Rule.

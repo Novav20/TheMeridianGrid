@@ -2,14 +2,13 @@ import { defineConfig } from '@prisma/config';
 import dotenv from 'dotenv';
 import path from 'path';
 
-/**
- * Prisma Configuration
- * 
- * We load the root .env by default for convenience. 
- * If DATABASE_URL is already set (e.g., by dotenv-cli in tests), 
- * it will be preferred over building the string from components.
- */
-dotenv.config({ path: path.join(__dirname, '../.env') });
+// Load environment variables. Prioritize .env.test if NODE_ENV is 'test',
+// otherwise fall back to the default .env location.
+const envPath = process.env.NODE_ENV === 'test'
+  ? path.join(__dirname, '../.env.test') // This correctly points to tmg-server/.env.test
+  : path.join(__dirname, '../.env'); // This points to tmg-server/../.env (root .env)
+
+dotenv.config({ path: envPath });
 
 const {
   DATABASE_URL,
@@ -20,9 +19,7 @@ const {
   POSTGRES_DB,
 } = process.env;
 
-// 1. Prefer the full URL if provided
-// 2. Fallback to building it from individual POSTGRES_* variables
-// 3. Use a placeholder if configuration is missing (Prisma will throw a clear error on usage)
+// Construct the connection string using variables from the loaded .env file
 const connectionString = DATABASE_URL || (
   (POSTGRES_USER && POSTGRES_PASSWORD && POSTGRES_HOST && POSTGRES_PORT && POSTGRES_DB)
     ? `postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`

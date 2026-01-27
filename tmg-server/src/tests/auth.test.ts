@@ -4,7 +4,8 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { PrismaService } from "../services/prisma.service";
 import { PasswordService } from "../services/password.service";
 import { SystemRole } from "../config/roles";
-import { UserStatus } from "../../prisma/client/enums";
+import { UserStatus } from "@tmg/shared";
+
 
 const prisma = PrismaService.getInstance().client;
 const passwordService = new PasswordService();

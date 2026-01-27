@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AssetState } from "../../prisma/client/client";
+import { AssetState } from "../index.js";
 
 /**
  * Zod Schema for Creating an Asset.

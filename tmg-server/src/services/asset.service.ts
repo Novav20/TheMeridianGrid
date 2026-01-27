@@ -1,5 +1,4 @@
-import { PrismaClient, Prisma } from "../../prisma/client/client";
-import { CreateAssetDto } from "../schemas/asset.schema";
+import { PrismaClient, Prisma, CreateAssetDto } from "@tmg/shared";
 
 /**
  * Service: AssetService

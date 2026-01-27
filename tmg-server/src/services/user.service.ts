@@ -1,4 +1,4 @@
-import { PrismaClient, UserStatus } from "../../prisma/client/client";
+import { PrismaClient, UserStatus } from "@tmg/shared";
 import { PasswordService } from "./password.service";
 
 /**
