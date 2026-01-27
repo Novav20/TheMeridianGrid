@@ -5,9 +5,9 @@ import {
   updateRuleSchema,
   CreateRuleDto,
   UpdateRuleDto,
-} from "../schemas/rule.schema";
+  Rule,
+} from "@tmg/shared";
 import { ApiResponse } from "../utils/types";
-import { Rule } from "../../prisma/client/client";
 
 /**
  * Controller: RuleController
@@ -22,7 +22,7 @@ export class RuleController {
   public create = async (
     req: Request<{}, ApiResponse<Rule>, CreateRuleDto>,
     res: Response<ApiResponse<Rule>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const validatedData = createRuleSchema.parse(req.body);
     const rule = await this.ruleService.createRule(validatedData);
@@ -39,7 +39,7 @@ export class RuleController {
   public getByAsset = async (
     req: Request<{ assetId: string }, ApiResponse<Rule[]>>,
     res: Response<ApiResponse<Rule[]>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { assetId } = req.params;
     const rules = await this.ruleService.getRulesByAsset(assetId);
@@ -55,7 +55,7 @@ export class RuleController {
   public update = async (
     req: Request<{ id: string }, ApiResponse<Rule>, UpdateRuleDto>,
     res: Response<ApiResponse<Rule>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
     const validatedData = updateRuleSchema.parse(req.body);
@@ -73,7 +73,7 @@ export class RuleController {
   public delete = async (
     req: Request<{ id: string }, ApiResponse>,
     res: Response<ApiResponse>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
     await this.ruleService.deleteRule(id);

@@ -1,0 +1,12 @@
+{
+  "name": "the-meridian-grid",
+  "private": true,
+  "workspaces": [
+    "tmg-server",
+    "tmg-client",
+    "tmg-shared"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

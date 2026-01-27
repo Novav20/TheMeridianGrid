@@ -1,4 +1,4 @@
-import { PrismaClient, UserStatus } from "../client/client";
+import { PrismaClient, UserStatus } from "@tmg/shared";
 import { PasswordService } from "../../src/services/password.service";
 import { SystemRole } from "../../src/config/roles";
 

@@ -3,10 +3,10 @@ import { TelemetryService } from "../services/telemetry.service";
 import {
   createTelemetryBatchSchema,
   CreateTelemetryBatchDto,
-} from "../schemas/telemetry.schema";
+  Telemetry
+} from "@tmg/shared";
 import { AppError } from "../utils/AppError";
 import { ApiResponse } from "../utils/types";
-import { Telemetry } from "../../prisma/client/client";
 
 /**
  * Controller: TelemetryController

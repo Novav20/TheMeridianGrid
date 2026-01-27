@@ -1,5 +1,4 @@
-import { PrismaClient } from "../../prisma/client/client";
-import { CreateRuleDto, UpdateRuleDto } from "../schemas/rule.schema";
+import { PrismaClient, CreateRuleDto, UpdateRuleDto } from "@tmg/shared";
 
 export class RuleService {
   constructor(private prisma: PrismaClient) {}

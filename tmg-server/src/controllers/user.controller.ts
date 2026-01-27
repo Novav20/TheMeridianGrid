@@ -2,13 +2,13 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
 import { AppError } from "../utils/AppError";
 import { ApiResponse } from "../utils/types";
-import { UserStatus } from "../../prisma/client/client";
 import {
   createUserSchema,
   updateUserSchema,
   CreateUserDto,
   UpdateUserDto,
-} from "../schemas/user.schema";
+  UserStatus,
+} from "@tmg/shared";
 
 /**
  * Controller: UserController
@@ -24,7 +24,7 @@ export class UserController {
   public create = async (
     req: Request<{}, ApiResponse, CreateUserDto>,
     res: Response<ApiResponse>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     // 1. Validate inputs (Zod)
     const validatedData = createUserSchema.parse(req.body);
@@ -48,7 +48,7 @@ export class UserController {
   public getAll = async (
     req: Request,
     res: Response<ApiResponse>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const users = await this.userService.findAll();
 
@@ -71,7 +71,7 @@ export class UserController {
   public update = async (
     req: Request<{ id: string }, ApiResponse, UpdateUserDto>,
     res: Response<ApiResponse>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
 
@@ -96,7 +96,7 @@ export class UserController {
   public disable = async (
     req: Request<{ id: string }, ApiResponse>,
     res: Response<ApiResponse>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
 

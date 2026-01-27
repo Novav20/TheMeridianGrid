@@ -1,5 +1,4 @@
-import { PrismaClient, AssetState } from "../../prisma/client/client";
-import { CreateTelemetryBatchDto } from "../schemas/telemetry.schema";
+import { PrismaClient, AssetState, CreateTelemetryBatchDto } from "@tmg/shared";
 import { EvaluationService } from "./evaluation.service";
 import { AppError } from "../utils/AppError";
 

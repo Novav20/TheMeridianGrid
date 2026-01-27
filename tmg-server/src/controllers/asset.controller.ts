@@ -4,10 +4,10 @@ import {
   createAssetSchema,
   updateAssetSchema,
   CreateAssetDto,
-} from "../schemas/asset.schema";
+  Asset,
+} from "@tmg/shared";
 import { AppError } from "../utils/AppError";
 import { ApiResponse } from "../utils/types";
-import { Asset } from "../../prisma/client/client";
 
 /**
  * Controller: AssetController
@@ -22,7 +22,7 @@ export class AssetController {
   public getAll = async (
     req: Request<{}, ApiResponse<Asset[]>, {}, Record<string, any>>,
     res: Response<ApiResponse<Asset[]>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const metadataFilter: Record<string, any> = {};
 
@@ -46,7 +46,7 @@ export class AssetController {
   public create = async (
     req: Request<{}, ApiResponse<Asset>, CreateAssetDto>,
     res: Response<ApiResponse<Asset>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const validatedData = createAssetSchema.parse(req.body);
     const asset = await this.assetService.createAsset(validatedData);
@@ -63,7 +63,7 @@ export class AssetController {
   public getById = async (
     req: Request<{ id: string }, ApiResponse<Asset>>,
     res: Response<ApiResponse<Asset>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
     const asset = await this.assetService.getAssetById(id);
@@ -84,7 +84,7 @@ export class AssetController {
   public update = async (
     req: Request<{ id: string }, ApiResponse<Asset>, Partial<CreateAssetDto>>,
     res: Response<ApiResponse<Asset>>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
     const validatedData = updateAssetSchema.parse(req.body);
@@ -103,7 +103,7 @@ export class AssetController {
   public delete = async (
     req: Request<{ id: string }, ApiResponse>,
     res: Response<ApiResponse>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const { id } = req.params;
     await this.assetService.deleteAsset(id);

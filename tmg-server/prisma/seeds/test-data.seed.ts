@@ -1,4 +1,4 @@
-import { PrismaClient, AssetState } from "../client/client";
+import { PrismaClient, AssetState } from "@tmg/shared";
 
 export async function seedTestData(prisma: PrismaClient) {
   console.log("Starting test data seeding...");

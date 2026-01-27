@@ -4,8 +4,8 @@ import {
   AlertStatus,
   Rule,
   Prisma,
-} from "../../prisma/client/client";
-import { TelemetryDataPointDto } from "../schemas/telemetry.schema";
+  TelemetryDataPointDto,
+} from "@tmg/shared";
 
 export class EvaluationService {
   constructor(private prisma: PrismaClient) {}
@@ -19,7 +19,7 @@ export class EvaluationService {
    */
   async evaluateBatch(
     telemetryPoints: TelemetryDataPointDto[],
-    tx?: Prisma.TransactionClient
+    tx?: Prisma.TransactionClient,
   ) {
     const client = tx || this.prisma;
 
@@ -31,7 +31,7 @@ export class EvaluationService {
 
     for (const point of telemetryPoints) {
       const applicableRules = rules.filter(
-        (r) => r.assetId === point.assetId && r.metric === point.propertyName
+        (r) => r.assetId === point.assetId && r.metric === point.propertyName,
       );
 
       for (const rule of applicableRules) {
@@ -67,7 +67,7 @@ export class EvaluationService {
   private isBreached(
     value: number,
     operator: RuleOperator,
-    threshold: number
+    threshold: number,
   ): boolean {
     switch (operator) {
       case RuleOperator.GT:
@@ -82,7 +82,7 @@ export class EvaluationService {
         return value <= threshold;
       default:
         console.warn(
-          `Unknown rule operator: ${operator}. Defaulting to false.`
+          `Unknown rule operator: ${operator}. Defaulting to false.`,
         );
         return false;
     }

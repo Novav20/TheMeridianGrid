@@ -1,18 +1,25 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "NodeNext",
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "noEmit": false,
+    "declaration": true,
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*", "prisma/**/*"],
-  "exclude": ["node_modules"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "prisma"],
   "ts-node": {
-    "files": true
+    "files": true,
+    "require": ["tsconfig-paths/register", "ts-node"]
   }
 }
