@@ -2,9 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
 import { PasswordService } from "../services/password.service";
 import { TokenService } from "../services/token.service";
-import { loginSchema, LoginDto } from "@tmg/shared";
+import { loginSchema, LoginDto, ApiResponse } from "@tmg/shared";
 import { AppError } from "../utils/AppError";
-import { ApiResponse } from "../utils/types";
 
 /**
  * Controller: AuthController

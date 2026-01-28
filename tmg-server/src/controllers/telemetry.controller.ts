@@ -3,10 +3,10 @@ import { TelemetryService } from "../services/telemetry.service";
 import {
   createTelemetryBatchSchema,
   CreateTelemetryBatchDto,
-  Telemetry
+  Telemetry,
+  ApiResponse,
 } from "@tmg/shared";
 import { AppError } from "../utils/AppError";
-import { ApiResponse } from "../utils/types";
 
 /**
  * Controller: TelemetryController

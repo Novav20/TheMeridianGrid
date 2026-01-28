@@ -6,8 +6,8 @@ import {
   CreateRuleDto,
   UpdateRuleDto,
   Rule,
+  ApiResponse,
 } from "@tmg/shared";
-import { ApiResponse } from "../utils/types";
 
 /**
  * Controller: RuleController
