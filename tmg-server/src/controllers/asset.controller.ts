@@ -5,9 +5,9 @@ import {
   updateAssetSchema,
   CreateAssetDto,
   Asset,
+  ApiResponse,
 } from "@tmg/shared";
 import { AppError } from "../utils/AppError";
-import { ApiResponse } from "../utils/types";
 
 /**
  * Controller: AssetController

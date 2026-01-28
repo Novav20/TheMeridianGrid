@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
 import { AppError } from "../utils/AppError";
-import { ApiResponse } from "../utils/types";
 import {
   createUserSchema,
   updateUserSchema,
   CreateUserDto,
   UpdateUserDto,
   UserStatus,
+  ApiResponse,
 } from "@tmg/shared";
 
 /**
