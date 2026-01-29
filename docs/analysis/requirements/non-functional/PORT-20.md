@@ -3,8 +3,16 @@ id: PORT-20
 title: Protocol Standard
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: MUST
-status_backend: Backlog
-status_test: Untested
+mvp-phase: MVP-1.0
+status: Not Started
+week-completed: 
+frontend-status: N/A
+backend-status: Not Started
+tested: false
+blocking: 
+blocked-by: 
+implementation-notes: "MQTT ingestion (v3.1.1/v5.0) planned for Week 7 (CD-3)."
+last-updated: 2026-01-29
 ---
 
 # PORT-20: Protocol Standard

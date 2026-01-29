@@ -3,8 +3,16 @@ id: SEC-08
 title: Audit Immutability
 epic: "[[02_epics#Epic 2: Identity, Access & Role Management]]"
 moscow: SHOULD
-status_backend: Backlog
-status_test: Untested
+mvp-phase: Phase-2
+status: Not Started
+week-completed: 
+frontend-status: Not Started
+backend-status: Not Started
+tested: false
+blocking: 
+blocked-by: FR-16
+implementation-notes: "Deferred to Phase 2. Currently, audit logs are stored in a standard PostgreSQL table."
+last-updated: 2026-01-29
 ---
 
 # SEC-08: Audit Immutability

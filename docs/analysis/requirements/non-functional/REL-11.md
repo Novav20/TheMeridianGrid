@@ -1,15 +1,22 @@
 ---
 id: REL-11
-title: Data Integrity
+title: Consistency
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: MUST
-status_backend: Done
-status_test: Verified
-implementation_notes: "PostgreSQL ensures ACID compliance."
+mvp-phase: MVP-1.0
+status: Complete
+week-completed: 3
+frontend-status: Complete
+backend-status: Complete
+tested: true
+blocking: 
+blocked-by: 
+implementation-notes: "PostgreSQL ACID compliance and Prisma transactions ensure data consistency across asset/telemetry updates."
+last-updated: 2026-01-29
 ---
 
-# REL-11: Data Integrity
+# REL-11: Consistency
 
-In the event of a power loss, no committed data transactions shall be lost (ACID compliance).
+The system shall ensure transactional consistency for all configuration and asset management operations.
 
-**Justification:** Postgres handles this natively; critical for trust in historical records.
+**Justification:** Critical for industrial systems where partial configuration updates could lead to incorrect monitoring states.
