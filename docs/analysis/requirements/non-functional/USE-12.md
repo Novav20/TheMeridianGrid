@@ -3,8 +3,16 @@ id: USE-12
 title: Learnability
 epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 moscow: MUST
-status_frontend: Backlog
-status_test: Untested
+mvp-phase: MVP-1.0
+status: Partial
+week-completed: 
+frontend-status: Partial
+backend-status: N/A
+tested: false
+blocking: 
+blocked-by: 
+implementation-notes: "Standard Material Design (MUI) patterns used for familiar navigation. Help documentation pending."
+last-updated: 2026-01-29
 ---
 
 # USE-12: Learnability

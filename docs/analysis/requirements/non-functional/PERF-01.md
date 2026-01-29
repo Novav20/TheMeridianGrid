@@ -3,8 +3,16 @@ id: PERF-01
 title: Latency
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: MUST
-status_backend: Untested
-status_test: Untested
+mvp-phase: MVP-1.0
+status: Partial
+week-completed: 
+frontend-status: Partial
+backend-status: Partial
+tested: false
+blocking: 
+blocked-by: 
+implementation-notes: "Telemetry ingestion pipeline active. Use of TimescaleDB and optimized Prisma queries support low latency, but end-to-end benchmarking is pending."
+last-updated: 2026-01-29
 ---
 
 # PERF-01: Latency

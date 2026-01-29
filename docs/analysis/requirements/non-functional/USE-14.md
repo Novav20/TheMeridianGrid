@@ -3,10 +3,16 @@ id: USE-14
 title: Error Feedback
 epic: "[[02_epics#Epic 3: Composable HMI & Visualization Framework]]"
 moscow: MUST
-status_backend: Done
-status_frontend: Backlog
-status_test: Verified
-implementation_notes: "Global Error Handler provides standardized error messages."
+mvp-phase: MVP-1.0
+status: Partial
+week-completed: 
+frontend-status: Partial
+backend-status: Complete
+tested: true
+blocking: 
+blocked-by: 
+implementation-notes: "Backend: Standardized AppError and Global Error Handler implemented. Frontend: Basic Snackbar alerts active, but comprehensive Error Boundaries planned for Week 6."
+last-updated: 2026-01-29
 ---
 
 # USE-14: Error Feedback

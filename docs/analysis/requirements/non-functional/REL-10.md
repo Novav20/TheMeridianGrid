@@ -3,8 +3,16 @@ id: REL-10
 title: Availability
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: SHOULD
-status_backend: Untested
-status_test: Untested
+mvp-phase: MVP-1.0
+status: Partial
+week-completed: 
+frontend-status: Partial
+backend-status: Partial
+tested: false
+blocking: 
+blocked-by: 
+implementation-notes: "System designed as individual services. High availability (HA) clustering is out of scope for MVP-1.0."
+last-updated: 2026-01-29
 ---
 
 # REL-10: Availability

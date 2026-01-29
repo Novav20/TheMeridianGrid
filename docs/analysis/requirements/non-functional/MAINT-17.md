@@ -3,10 +3,16 @@ id: MAINT-17
 title: Test Coverage
 epic: "[[02_epics#Epic 1: Semantic Data Core & Universal Connectivity]]"
 moscow: SHOULD
-status_backend: Done
-status_frontend: Backlog
-status_test: Automated
-implementation_notes: "Vitest/Supertest integration tests covering Auth and Ingestion."
+mvp-phase: MVP-1.0
+status: Partial
+week-completed: 
+frontend-status: Not Started
+backend-status: Complete
+tested: true
+blocking: 
+blocked-by: 
+implementation-notes: "Backend: Integration tests implemented with Vitest/Supertest. Frontend: Coverage planned for Week 6."
+last-updated: 2026-01-29
 ---
 
 # MAINT-17: Test Coverage
