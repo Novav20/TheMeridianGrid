@@ -3,6 +3,7 @@ import { ProtectedLayout } from '@/layouts/ProtectedLayout';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { LoginPage } from '@/pages/auth/LoginPage';
 import { DashboardPage } from '@/pages/DashboardPage';
+import { AssetInventoryPage } from '@/pages/AssetInventoryPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 /**
@@ -23,6 +24,7 @@ export const AppRoutes = () => (
     {/* Protected Layout Routes */}
     <Route element={<ProtectedLayout />}>
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/assets" element={<AssetInventoryPage />} />
       <Route index element={<Navigate to="/dashboard" replace />} />
     </Route>
 
