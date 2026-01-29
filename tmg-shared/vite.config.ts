@@ -5,14 +5,16 @@ export default defineConfig({
   build: {
     emptyOutDir: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        server: resolve(__dirname, 'src/server.ts'),
+      },
       name: 'tmg-shared',
-      fileName: 'index',
       formats: ['es', 'cjs']
     },
     rollupOptions: {
-      external: (id: string) => 
-        id.startsWith('@prisma/client') || 
+      external: (id: string) =>
+        id.startsWith('@prisma/client') ||
         id.startsWith('node:') ||
         id === 'zod',
       output: {

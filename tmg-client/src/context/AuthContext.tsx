@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
 import type { User, ApiResponse } from "@tmg/shared";
 import { AuthContext } from "./AuthContext.types";
@@ -9,8 +9,29 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Start as true to avoid flickering
   const [error, setError] = useState<string | null>(null);
+
+  const checkSession = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/auth/me", {
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        const body: ApiResponse<User> = await response.json();
+        setUser(body.data || null);
+      } else {
+        setUser(null);
+      }
+    } catch (err) {
+      console.error("Session check failed:", err);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const login = async (email: string, password: string) => {
     try {
@@ -42,13 +63,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    setError(null);
+  const logout = async () => {
+    try {
+      setIsLoading(true);
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      setUser(null);
+      setError(null);
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // Hydrate session on mount
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, error, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, error, login, logout, checkSession }}>
       {children}
     </AuthContext.Provider>
   );
