@@ -1,4 +1,4 @@
-import { PrismaClient } from "@tmg/shared";
+import { PrismaClient } from "@tmg/shared/server";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 

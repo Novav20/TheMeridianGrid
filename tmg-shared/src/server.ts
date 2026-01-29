@@ -1,10 +1,10 @@
 /**
- * @tmg/shared
- * Entry point for shared types and schemas.
+ * @tmg/shared/server
+ * Entry point for server-side usage, including full Prisma Client values.
  */
 
 export * from './generated/prisma/enums.js';
-export type * from './generated/prisma/client.js';
+export * from './generated/prisma/client.js'; // Includes full runtime for Node.js
 export * from './schemas/asset.schema.js';
 export * from './schemas/auth.schema.js';
 export * from './schemas/response.schema.js';
