@@ -1,7 +1,5 @@
 # The Meridian Grid
 
-A centralized IoT dashboard designed to monitor, analyze, and control a fleet of physical and virtual machines.
-
 ## Project Overview
 
 The Meridian Grid (TMG) acts as a bridge between the physical world of mechatronics and modern software architecture. It provides real-time visualization of sensor data and remote actuation capabilities, serving as a comprehensive learning platform for full-stack development, containerization, and industrial communication protocols.
