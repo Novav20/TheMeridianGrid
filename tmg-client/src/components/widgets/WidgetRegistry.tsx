@@ -6,8 +6,8 @@ import type { ComponentType } from "react";
 export type WidgetType = "STAT_WIDGET" | "CHART_WIDGET" | "STATUS_WIDGET";
 
 interface WidgetRegistryItem {
-    component: ComponentType<any>;
-    defaultProps: Record<string, any>;
+    component: ComponentType<any>; // Component internal props can be any for registry purposes
+    defaultProps: Record<string, unknown>;
     defaultSize: { w: number; h: number };
 }
 
@@ -29,10 +29,10 @@ export const WIDGET_REGISTRY: Record<WidgetType, WidgetRegistryItem> = {
     },
 };
 
-export const renderWidget = (type: WidgetType, props: any) => {
+export const renderWidget = (type: WidgetType, props?: Record<string, unknown>) => {
     const registryItem = WIDGET_REGISTRY[type];
     if (!registryItem) return null;
 
     const Component = registryItem.component;
-    return <Component {...registryItem.defaultProps} {...props} />;
+    return <Component {...registryItem.defaultProps} {...(props || {})} />;
 };

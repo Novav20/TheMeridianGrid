@@ -41,7 +41,7 @@ export const CreateAssetModal = ({ open, onClose, onSuccess }: CreateAssetModalP
         let modelObject: object;
         try {
             modelObject = JSON.parse(modelJson);
-        } catch (err) {
+        } catch {
             setError("Model must be valid JSON");
             return;
         }

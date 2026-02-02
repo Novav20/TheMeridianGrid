@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import { RuleService } from "../services/rule.service";
 import {
   createRuleSchema,
@@ -13,7 +14,7 @@ import {
  * Interface: RuleParams
  * URL parameters for rule management.
  */
-interface RuleParams {
+interface RuleParams extends ParamsDictionary {
   id: string;
 }
 
@@ -21,7 +22,7 @@ interface RuleParams {
  * Interface: AssetParams (Local to RuleController)
  * URL parameters for asset-scoped rule retrieval.
  */
-interface AssetParams {
+interface AssetParams extends ParamsDictionary {
   assetId: string;
 }
 
@@ -36,7 +37,7 @@ export class RuleController {
    * Creates a new rule for an asset.
    */
   public create = async (
-    req: Request<{}, ApiResponse<Rule>, CreateRuleDto>,
+    req: Request<ParamsDictionary, ApiResponse<Rule>, CreateRuleDto>,
     res: Response<ApiResponse<Rule>>,
     next: NextFunction,
   ) => {
