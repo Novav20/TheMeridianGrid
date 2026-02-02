@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import { TelemetryService } from "../services/telemetry.service";
 import {
   createTelemetryBatchSchema,
@@ -12,7 +13,7 @@ import { AppError } from "../utils/AppError";
  * Interface: TelemetryParams
  * URL parameters for telemetry retrieval.
  */
-interface TelemetryParams {
+interface TelemetryParams extends ParamsDictionary {
   assetId: string;
 }
 
@@ -36,7 +37,7 @@ export class TelemetryController {
    * Ingests a batch of telemetry data points.
    */
   public ingest = async (
-    req: Request<{}, ApiResponse, CreateTelemetryBatchDto>,
+    req: Request<ParamsDictionary, ApiResponse, CreateTelemetryBatchDto>,
     res: Response<ApiResponse>,
     next: NextFunction
   ) => {

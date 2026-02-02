@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import { AssetService } from "../services/asset.service";
 import {
   createAssetSchema,
@@ -12,8 +13,9 @@ import { AppError } from "../utils/AppError";
 /**
  * Interface: AssetParams
  * Defines the URL parameters for asset endpoints.
+ * Extends ParamsDictionary to ensure compatibility with Express Router.
  */
-interface AssetParams {
+interface AssetParams extends ParamsDictionary {
   id: string;
 }
 
@@ -28,7 +30,7 @@ export class AssetController {
    * Retrieves all assets, optionally filtered by metadata query parameters.
    */
   public getAll = async (
-    req: Request<{}, ApiResponse<Asset[]>, {}, Record<string, any>>,
+    req: Request<ParamsDictionary, ApiResponse<Asset[]>, {}, Record<string, any>>,
     res: Response<ApiResponse<Asset[]>>,
     next: NextFunction,
   ) => {
@@ -52,7 +54,7 @@ export class AssetController {
    * Creates a new digital asset.
    */
   public create = async (
-    req: Request<{}, ApiResponse<Asset>, CreateAssetDto>,
+    req: Request<ParamsDictionary, ApiResponse<Asset>, CreateAssetDto>,
     res: Response<ApiResponse<Asset>>,
     next: NextFunction,
   ) => {

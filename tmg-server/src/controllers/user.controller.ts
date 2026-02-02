@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import { UserService } from "../services/user.service";
 import { AppError } from "../utils/AppError";
 import {
@@ -14,7 +15,7 @@ import {
  * Interface: UserParams
  * Defines URL parameters for user management.
  */
-interface UserParams {
+interface UserParams extends ParamsDictionary {
   id: string;
 }
 
@@ -30,7 +31,7 @@ export class UserController {
    * Purpose: Creates a new user (Admin only).
    */
   public create = async (
-    req: Request<{}, ApiResponse, CreateUserDto>,
+    req: Request<ParamsDictionary, ApiResponse, CreateUserDto>,
     res: Response<ApiResponse>,
     next: NextFunction,
   ) => {

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Card, CardContent, CardHeader, IconButton, Box } from "@mui/material";
+import { Card, CardContent, CardHeader, IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface BaseWidgetProps {

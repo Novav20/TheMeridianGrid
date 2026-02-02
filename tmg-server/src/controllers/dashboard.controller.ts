@@ -1,10 +1,11 @@
 import type { Request, Response } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import { DashboardService } from "../services/dashboard.service";
 import { createDashboardSchema, updateDashboardSchema } from "@tmg/shared";
 import { AppError } from "../utils/AppError";
 
 // Explicitly define the params interface
-interface DashboardParams {
+interface DashboardParams extends ParamsDictionary {
   id: string;
 }
 
@@ -31,7 +32,7 @@ export class DashboardController {
     res.json({ data: dashboard });
   };
 
-  create = async (req: Request, res: Response) => {
+  create = async (req: Request<ParamsDictionary>, res: Response) => {
     if (!req.user) throw new AppError(401, "Unauthorized");
     
     const validatedData = createDashboardSchema.parse(req.body);
