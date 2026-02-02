@@ -10,6 +10,22 @@ import {
 } from "@tmg/shared";
 
 /**
+ * Interface: RuleParams
+ * URL parameters for rule management.
+ */
+interface RuleParams {
+  id: string;
+}
+
+/**
+ * Interface: AssetParams (Local to RuleController)
+ * URL parameters for asset-scoped rule retrieval.
+ */
+interface AssetParams {
+  assetId: string;
+}
+
+/**
  * Controller: RuleController
  * Purpose: Handles HTTP traffic for Rule management.
  */
@@ -37,7 +53,7 @@ export class RuleController {
    * Retrieves all rules associated with a specific asset.
    */
   public getByAsset = async (
-    req: Request<{ assetId: string }, ApiResponse<Rule[]>>,
+    req: Request<AssetParams, ApiResponse<Rule[]>>,
     res: Response<ApiResponse<Rule[]>>,
     next: NextFunction,
   ) => {
@@ -53,7 +69,7 @@ export class RuleController {
    * Updates an existing rule.
    */
   public update = async (
-    req: Request<{ id: string }, ApiResponse<Rule>, UpdateRuleDto>,
+    req: Request<RuleParams, ApiResponse<Rule>, UpdateRuleDto>,
     res: Response<ApiResponse<Rule>>,
     next: NextFunction,
   ) => {
@@ -71,7 +87,7 @@ export class RuleController {
    * Deletes a rule.
    */
   public delete = async (
-    req: Request<{ id: string }, ApiResponse>,
+    req: Request<RuleParams, ApiResponse>,
     res: Response<ApiResponse>,
     next: NextFunction,
   ) => {

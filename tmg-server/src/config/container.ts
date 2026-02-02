@@ -6,11 +6,13 @@ import { AssetService } from "../services/asset.service";
 import { TelemetryService } from "../services/telemetry.service";
 import { EvaluationService } from "../services/evaluation.service";
 import { RuleService } from "../services/rule.service";
+import { DashboardService } from "../services/dashboard.service";
 import { AuthController } from "../controllers/auth.controller";
 import { UserController } from "../controllers/user.controller";
 import { AssetController } from "../controllers/asset.controller";
 import { TelemetryController } from "../controllers/telemetry.controller";
 import { RuleController } from "../controllers/rule.controller";
+import { DashboardController } from "../controllers/dashboard.controller";
 
 /**
  * AppContainer
@@ -26,6 +28,7 @@ class AppContainer {
   public readonly assetController: AssetController;
   public readonly telemetryController: TelemetryController;
   public readonly ruleController: RuleController;
+  public readonly dashboardController: DashboardController;
 
   constructor() {
     // 1. Core Infrastructure
@@ -39,6 +42,7 @@ class AppContainer {
     const telemetryService = new TelemetryService(prisma, evaluationService);
     const ruleService = new RuleService(prisma);
     const assetService = new AssetService(prisma);
+    const dashboardService = new DashboardService(prisma);
 
     // 3. Instantiate Controllers
     this.authController = new AuthController(
@@ -50,6 +54,7 @@ class AppContainer {
     this.assetController = new AssetController(assetService);
     this.telemetryController = new TelemetryController(telemetryService);
     this.ruleController = new RuleController(ruleService);
+    this.dashboardController = new DashboardController(dashboardService);
   }
 }
 

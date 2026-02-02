@@ -10,6 +10,14 @@ import {
 import { AppError } from "../utils/AppError";
 
 /**
+ * Interface: AssetParams
+ * Defines the URL parameters for asset endpoints.
+ */
+interface AssetParams {
+  id: string;
+}
+
+/**
  * Controller: AssetController
  * Purpose: Handles HTTP traffic for Asset-related endpoints.
  */
@@ -61,7 +69,7 @@ export class AssetController {
    * Retrieves a single asset by its UUID.
    */
   public getById = async (
-    req: Request<{ id: string }, ApiResponse<Asset>>,
+    req: Request<AssetParams, ApiResponse<Asset>>,
     res: Response<ApiResponse<Asset>>,
     next: NextFunction,
   ) => {
@@ -82,7 +90,7 @@ export class AssetController {
    * Updates an existing asset.
    */
   public update = async (
-    req: Request<{ id: string }, ApiResponse<Asset>, Partial<CreateAssetDto>>,
+    req: Request<AssetParams, ApiResponse<Asset>, Partial<CreateAssetDto>>,
     res: Response<ApiResponse<Asset>>,
     next: NextFunction,
   ) => {
@@ -101,7 +109,7 @@ export class AssetController {
    * Deletes an asset.
    */
   public delete = async (
-    req: Request<{ id: string }, ApiResponse>,
+    req: Request<AssetParams, ApiResponse>,
     res: Response<ApiResponse>,
     next: NextFunction,
   ) => {
