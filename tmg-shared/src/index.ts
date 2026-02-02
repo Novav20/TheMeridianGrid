@@ -11,3 +11,4 @@ export * from './schemas/response.schema.js';
 export * from './schemas/rule.schema.js';
 export * from './schemas/telemetry.schema.js';
 export * from './schemas/user.schema.js';
+export * from './schemas/dashboard.schema.js';

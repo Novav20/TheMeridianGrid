@@ -11,6 +11,14 @@ import {
 } from "@tmg/shared";
 
 /**
+ * Interface: UserParams
+ * Defines URL parameters for user management.
+ */
+interface UserParams {
+  id: string;
+}
+
+/**
  * Controller: UserController
  * Purpose: Handles user management (CRUD) operations.
  */
@@ -69,7 +77,7 @@ export class UserController {
    * Purpose: Updates a user's details.
    */
   public update = async (
-    req: Request<{ id: string }, ApiResponse, UpdateUserDto>,
+    req: Request<UserParams, ApiResponse, UpdateUserDto>,
     res: Response<ApiResponse>,
     next: NextFunction,
   ) => {
@@ -94,7 +102,7 @@ export class UserController {
    * Purpose: Soft-deletes a user (sets status to DISABLED).
    */
   public disable = async (
-    req: Request<{ id: string }, ApiResponse>,
+    req: Request<UserParams, ApiResponse>,
     res: Response<ApiResponse>,
     next: NextFunction,
   ) => {

@@ -9,6 +9,23 @@ import {
 import { AppError } from "../utils/AppError";
 
 /**
+ * Interface: TelemetryParams
+ * URL parameters for telemetry retrieval.
+ */
+interface TelemetryParams {
+  assetId: string;
+}
+
+/**
+ * Interface: TelemetryQuery
+ * Query parameters for historical telemetry data.
+ */
+interface TelemetryQuery {
+  start: string;
+  end: string;
+}
+
+/**
  * Controller: TelemetryController
  * Purpose: Handles HTTP traffic for Telemetry ingestion and retrieval.
  */
@@ -35,12 +52,7 @@ export class TelemetryController {
    * Retrieves historical telemetry data for a specific asset.
    */
   public getHistory = async (
-    req: Request<
-      { assetId: string },
-      ApiResponse<Telemetry[]>,
-      {},
-      { start: string; end: string }
-    >,
+    req: Request<TelemetryParams, ApiResponse<Telemetry[]>, {}, TelemetryQuery>,
     res: Response<ApiResponse<Telemetry[]>>,
     next: NextFunction
   ) => {
@@ -69,7 +81,7 @@ export class TelemetryController {
    * Retrieves the most recent telemetry data point for an asset.
    */
   public getLatest = async (
-    req: Request<{ assetId: string }, ApiResponse<Telemetry>>,
+    req: Request<TelemetryParams, ApiResponse<Telemetry>>,
     res: Response<ApiResponse<Telemetry>>,
     next: NextFunction
   ) => {
