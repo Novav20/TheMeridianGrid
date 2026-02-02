@@ -62,6 +62,13 @@ graph TD;
 - [x] Refactored architecture with Centralized Dependency Injection (`AppContainer`).
 - [x] Implemented robust Integration Testing infrastructure with isolated Test Database.
 
+### Week 5: Frontend Architecture & Shared Library
+- [x] Created `tmg-shared` npm workspace for isomorphic Types/Schemas.
+- [x] Established Frontend Architecture (React Router, Layouts, AuthContext).
+- [x] Built Composable Dashboard Engine using `react-grid-layout` and Registry Pattern.
+- [x] Implemented Asset Management UI (DataGrid + Create Modal) connecting to API.
+- [x] Standardized UI with Material-UI (MUI) Theme.
+
 ## Usage Guide
 
 ### Authentication
