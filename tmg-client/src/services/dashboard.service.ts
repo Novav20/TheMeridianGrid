@@ -12,7 +12,7 @@ export class DashboardService {
      */
     static async getDashboards(): Promise<Dashboard[]> {
         try {
-            const response = await fetch(this.baseUrl, {
+            const response = await fetch(DashboardService.baseUrl, {
                 credentials: "include",
             });
 
@@ -33,7 +33,7 @@ export class DashboardService {
      */
     static async getDashboard(id: string): Promise<Dashboard> {
         try {
-            const response = await fetch(`${this.baseUrl}/${id}`, {
+            const response = await fetch(`${DashboardService.baseUrl}/${id}`, {
                 credentials: "include",
             });
 
@@ -55,7 +55,7 @@ export class DashboardService {
      */
     static async createDashboard(data: CreateDashboardDto): Promise<Dashboard> {
         try {
-            const response = await fetch(this.baseUrl, {
+            const response = await fetch(DashboardService.baseUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -80,7 +80,7 @@ export class DashboardService {
      */
     static async updateDashboard(id: string, data: UpdateDashboardDto): Promise<Dashboard> {
         try {
-            const response = await fetch(`${this.baseUrl}/${id}`, {
+            const response = await fetch(`${DashboardService.baseUrl}/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -105,7 +105,7 @@ export class DashboardService {
      */
     static async deleteDashboard(id: string): Promise<void> {
         try {
-            const response = await fetch(`${this.baseUrl}/${id}`, {
+            const response = await fetch(`${DashboardService.baseUrl}/${id}`, {
                 method: "DELETE",
                 credentials: "include",
             });

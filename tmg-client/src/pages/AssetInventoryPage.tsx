@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
     Box,
     Paper,
@@ -9,39 +9,41 @@ import {
 } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
-import type { Asset } from "@tmg/shared";
+import { useQuery } from "@tanstack/react-query";
 import { AssetService } from "../services/asset.service";
 import { CreateAssetModal } from "@/components/CreateAssetModal";
+import { queryKeys } from "@/api/queryKeys";
 
 /**
- * AssetInventoryPage - Display all assets in a data grid
+ * AssetInventoryPage - Display all assets in a data grid using React Query
  */
 export const AssetInventoryPage = () => {
-    const [assets, setAssets] = useState<Asset[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const [modalOpen, setModalOpen] = useState(false);
+    
+    // Store the hash (message) of the error the user manually dismissed
+    const [dismissedErrorHash, setDismissedErrorHash] = useState<string | null>(null);
 
-    const loadAssets = async () => {
-        try {
-            setLoading(true);
-            setError(null);
-            const data = await AssetService.getAssets();
-            setAssets(data);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "Failed to load assets");
-        } finally {
-            setLoading(false);
-        }
-    };
+    // Fetch assets using React Query
+    const { 
+        data: assets = [], 
+        isLoading, 
+        error 
+    } = useQuery({
+        queryKey: queryKeys.assets.lists(),
+        queryFn: () => AssetService.getAssets(),
+    });
 
-    useEffect(() => {
-        loadAssets();
-    }, []);
+    // Derived State: We only show the error if it exists AND hasn't been dismissed yet
+    const shouldShowError = !!error && dismissedErrorHash !== (error as Error).message;
 
     const handleAssetCreated = () => {
         setModalOpen(false);
-        loadAssets(); // Refresh the list
+    };
+
+    const handleDismissError = () => {
+        if (error) {
+            setDismissedErrorHash((error as Error).message);
+        }
     };
 
     const columns: GridColDef[] = [
@@ -120,10 +122,14 @@ export const AssetInventoryPage = () => {
                 </Box>
             </Paper>
 
-            {/* Error Display */}
-            {error && (
-                <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>
-                    {error}
+            {/* Error Display - Using Derived visibility state to satisfy ESLint & React 19 best practices */}
+            {shouldShowError && (
+                <Alert 
+                    severity="error" 
+                    sx={{ mb: 2 }} 
+                    onClose={handleDismissError}
+                >
+                    {(error as Error).message || "Failed to load assets"}
                 </Alert>
             )}
 
@@ -132,7 +138,7 @@ export const AssetInventoryPage = () => {
                 <DataGrid
                     rows={assets}
                     columns={columns}
-                    loading={loading}
+                    loading={isLoading}
                     pageSizeOptions={[10, 25, 50, 100]}
                     initialState={{
                         pagination: { paginationModel: { pageSize: 25 } },
