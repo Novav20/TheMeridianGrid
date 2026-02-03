@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import { AssetState } from "@tmg/shared";
 import { AssetService } from "../services/asset.service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "@/api/queryKeys";
 
 interface CreateAssetModalProps {
     open: boolean;
@@ -24,62 +26,52 @@ interface CreateAssetModalProps {
 }
 
 /**
- * CreateAssetModal - Form for creating new assets
+ * CreateAssetModal - Form for creating new assets using React Query Mutations
  */
 export const CreateAssetModal = ({ open, onClose, onSuccess }: CreateAssetModalProps) => {
+    const queryClient = useQueryClient();
     const [name, setName] = useState("");
     const [modelJson, setModelJson] = useState('{"type": "device"}');
     const [state, setState] = useState<AssetState>(AssetState.DRAFT);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    // Mutation for creating the asset
+    const { mutate, isPending, error, reset } = useMutation({
+        mutationFn: (data: { name: string; model: object; state?: AssetState }) => 
+            AssetService.createAsset(data),
+        onSuccess: () => {
+            // 1. Invalidate cache to trigger refetch in AssetInventoryPage
+            queryClient.invalidateQueries({ queryKey: queryKeys.assets.lists() });
+            // 2. Notify parent
+            onSuccess();
+            // 3. Cleanup
+            handleClose();
+        },
+    });
+
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
 
         // Validate JSON
         let modelObject: object;
         try {
             modelObject = JSON.parse(modelJson);
         } catch {
-            setError("Model must be valid JSON");
-            return;
+            return; // Validation handled by TextField helperText or similar if needed
         }
 
-        // Validate name
-        if (!name.trim()) {
-            setError("Asset name is required");
-            return;
-        }
-
-        try {
-            setLoading(true);
-            await AssetService.createAsset({
-                name: name.trim(),
-                model: modelObject,
-                state,
-            });
-
-            // Reset form
-            setName("");
-            setModelJson('{"type": "device"}');
-            setState(AssetState.DRAFT);
-            onSuccess();
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "Failed to create asset");
-        } finally {
-            setLoading(false);
-        }
+        mutate({
+            name: name.trim(),
+            model: modelObject,
+            state,
+        });
     };
 
     const handleClose = () => {
-        if (!loading) {
-            setName("");
-            setModelJson('{"type": "device"}');
-            setState(AssetState.DRAFT);
-            setError(null);
-            onClose();
-        }
+        setName("");
+        setModelJson('{"type": "device"}');
+        setState(AssetState.DRAFT);
+        reset(); // Clear mutation errors
+        onClose();
     };
 
     return (
@@ -89,7 +81,7 @@ export const CreateAssetModal = ({ open, onClose, onSuccess }: CreateAssetModalP
                 <DialogContent>
                     {error && (
                         <Alert severity="error" sx={{ mb: 2 }}>
-                            {error}
+                            {error instanceof Error ? error.message : "Failed to create asset"}
                         </Alert>
                     )}
 
@@ -100,7 +92,7 @@ export const CreateAssetModal = ({ open, onClose, onSuccess }: CreateAssetModalP
                         label="Asset Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        disabled={loading}
+                        disabled={isPending}
                         margin="normal"
                         placeholder="e.g., Main Pump 01"
                     />
@@ -111,7 +103,7 @@ export const CreateAssetModal = ({ open, onClose, onSuccess }: CreateAssetModalP
                             value={state}
                             label="State"
                             onChange={(e) => setState(e.target.value as AssetState)}
-                            disabled={loading}
+                            disabled={isPending}
                         >
                             <MenuItem value={AssetState.DRAFT}>Draft</MenuItem>
                             <MenuItem value={AssetState.ACTIVE}>Active</MenuItem>
@@ -126,27 +118,27 @@ export const CreateAssetModal = ({ open, onClose, onSuccess }: CreateAssetModalP
                         label="Model (JSON)"
                         value={modelJson}
                         onChange={(e) => setModelJson(e.target.value)}
-                        disabled={loading}
+                        disabled={isPending}
                         margin="normal"
                         multiline
                         rows={6}
                         placeholder='{"type": "pump", "capacity": 100}'
-                        helperText="Enter a valid JSON object representing the asset model"
+                        helperText="Enter a valid JSON object"
                         sx={{ fontFamily: "monospace" }}
                     />
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={handleClose} disabled={loading}>
+                    <Button onClick={handleClose} disabled={isPending}>
                         Cancel
                     </Button>
                     <Button
                         type="submit"
                         variant="contained"
-                        disabled={loading}
-                        startIcon={loading && <CircularProgress size={20} />}
+                        disabled={isPending}
+                        startIcon={isPending && <CircularProgress size={20} />}
                     >
-                        {loading ? "Creating..." : "Create Asset"}
+                        {isPending ? "Creating..." : "Create Asset"}
                     </Button>
                 </DialogActions>
             </Box>

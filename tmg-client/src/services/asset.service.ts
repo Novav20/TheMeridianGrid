@@ -12,7 +12,7 @@ export class AssetService {
      */
     static async getAssets(): Promise<Asset[]> {
         try {
-            const response = await fetch(this.baseUrl, {
+            const response = await fetch(AssetService.baseUrl, {
                 credentials: "include",
             });
 
@@ -37,7 +37,7 @@ export class AssetService {
         state?: AssetState;
     }): Promise<Asset> {
         try {
-            const response = await fetch(this.baseUrl, {
+            const response = await fetch(AssetService.baseUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
