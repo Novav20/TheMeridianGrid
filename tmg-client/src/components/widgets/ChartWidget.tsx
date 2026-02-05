@@ -11,7 +11,7 @@ import { BaseWidget } from "./BaseWidget";
 
 interface ChartWidgetProps {
     title: string;
-    data?: any[]; // For now, accept any data
+    data?: Record<string, unknown>[];
     dataKey?: string;
     // react-grid-layout props
     className?: string;

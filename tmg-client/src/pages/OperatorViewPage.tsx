@@ -77,10 +77,10 @@ export const OperatorViewPage = () => {
             }}
           >
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #bdbdbd", pb: 0.5 }}>
-              <Typography variant="subtitle2" fontWeight="bold">
+              <Typography variant="subtitle2" fontWeight="bold" sx={{ color: "#000" }}>
                 {asset.name}
               </Typography>
-              <Typography variant="caption" sx={{ fontFamily: "monospace" }}>
+              <Typography variant="caption" sx={{ fontFamily: "monospace", color: "#424242" }}>
                 {asset.id.split("-")[0]}
               </Typography>
             </Box>
