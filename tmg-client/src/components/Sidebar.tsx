@@ -2,6 +2,7 @@ import { Box, Paper, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import SettingsIcon from "@mui/icons-material/Settings";
+import MonitorIcon from "@mui/icons-material/Monitor";
 import { Link, useLocation } from "react-router-dom";
 
 /**
@@ -14,6 +15,7 @@ export const Sidebar = () => {
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
     { text: "Assets", icon: <InventoryIcon />, path: "/assets" },
+    { text: "Operator View", icon: <MonitorIcon />, path: "/operator" },
     { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
   ];
 
