@@ -5,20 +5,16 @@ services:
   client:
     restart: always
     build:
-      context: ./tmg-client
-      # Multi-stage build handles compilation and Nginx setup.
+      context: .
+      dockerfile: tmg-client/Dockerfile
     ports:
-      - "8080:80" # Map host:8080 -> container:80
+      - "8080:80"
 
-  # ---------------------------------------------------------------------------
-  # Backend Service (Node.js + Express)
-  # ---------------------------------------------------------------------------
   server:
     restart: always
     build: 
-      context: ./tmg-server
-      # Uses the production-optimized multi-stage build (no devDependencies).
-      # Note: Changes require a rebuild (`docker-compose up --build`).
+      context: .
+      dockerfile: tmg-server/Dockerfile
     ports:
       - "${PORT}:3000"
     depends_on:

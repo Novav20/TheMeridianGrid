@@ -6,7 +6,8 @@ import type { ComponentType } from "react";
 export type WidgetType = "STAT_WIDGET" | "CHART_WIDGET" | "STATUS_WIDGET";
 
 interface WidgetRegistryItem {
-    component: ComponentType<any>; // Component internal props can be any for registry purposes
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    component: ComponentType<any>; 
     defaultProps: Record<string, unknown>;
     defaultSize: { w: number; h: number };
 }
