@@ -67,6 +67,14 @@ graph TD;
 - [x] Implemented Asset Management UI (DataGrid + Create Modal) connecting to API.
 - [x] Standardized UI with Material-UI (MUI) Theme.
 
+### Week 6: Dashboard Persistence & Production Readiness
+- [x] Implemented Dashboard Layout Persistence (Backend/Frontend).
+- [x] Integrated React Query (TanStack Query) for efficient server-state management.
+- [x] Added Global Error Handling (ErrorBoundary + Notification Context + Global API Catching).
+- [x] Optimized performance via Route-based Code Splitting and Loading Fallbacks.
+- [x] Created ISA-101 Compliant High-Performance HMI (Operator View Prototype).
+- [x] Hardened Docker configuration for monorepo workspace compatibility.
+
 ## Usage Guide
 
 ### Authentication
