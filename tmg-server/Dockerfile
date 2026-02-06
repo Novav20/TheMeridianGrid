@@ -50,4 +50,4 @@ COPY --from=build /app/tmg-shared/dist ./tmg-shared/dist
 EXPOSE 3000
 
 # Start the server
-CMD ["node", "dist/src/index.js"]
+CMD ["node", "dist/index.js"]
