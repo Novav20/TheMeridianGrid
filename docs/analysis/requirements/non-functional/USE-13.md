@@ -8,11 +8,11 @@ status: Complete
 week-completed: 5
 frontend-status: Complete
 backend-status: N/A
-tested: true
+tested: false
 blocking: 
 blocked-by: 
-implementation-notes: "ThemeContext implemented in Week 5 providing full Dark Mode / Light Mode support and MUI baseline styling."
-last-updated: 2026-01-29
+implementation-notes: "ThemeContext provides Dark/Light mode toggle with MUI theme + CssBaseline. No formal accessibility audit recorded yet."
+last-updated: 2026-02-06
 ---
 
 # USE-13: Accessibility
